@@ -1,5 +1,5 @@
 # Geotree - Arvore genérica de figuras geométricas
-Trabalho da disciplina Estruturas de Dados, PGG do IC-UFF.
+Trabalho da disciplina Estruturas de Dados, 2019.1 PGG IC-UFF.
 
 ## Enunciado
 
