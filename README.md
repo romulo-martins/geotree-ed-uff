@@ -21,7 +21,7 @@ as duas dimensões informadas serão a base e a altura; e, por fim, (c) se a fig
 informadas, nessa ordem, base menor, base maior e altura;
 * a estrutura deve ser totalmente destruída pelo seu programa antes da execução ser finalizada;
 
-![Imagem da arvore genérica.](img/gentree.c)
+![Imagem da arvore genérica.](gentree.png)
 
 Exemplo de entrada, dado por um arquivo:
 ```
