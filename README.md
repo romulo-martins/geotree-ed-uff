@@ -24,7 +24,7 @@ figuras geométricas, incluindo seu nome;
 (c) se a figura for um trapézio, três dimensões serão informadas, nessa ordem, base menor, base maior e altura;
 * A estrutura deve ser totalmente destruída pelo seu programa antes da execução ser finalizada;
 
-![Imagem da arvore genérica.](gentree.png)
+![Imagem da arvore genérica.](img/gentree.png)
 
 Exemplo de entrada, dado por um arquivo:
 ```
