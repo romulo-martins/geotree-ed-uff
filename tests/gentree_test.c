@@ -13,10 +13,13 @@ int main(int argc, char const *argv[]) {
 	t = insert_gt(t, 9, 4, "QUA", NULL);
 	t = insert_gt(t, 10, 1, "TRI", NULL);
 
+
 	// Verifica se está realizando a impressão de forma correta
+	printf("Teste de exibição: \n");
 	print_gt(t);
 
 	// Realiza o teste de buscas
+	printf("Teste de buscas: \n");
 	GenTree *gt = search_gt(t, 4);
 	if(gt && (strcmp(gt->type, "CIR") == 0)) printf("OK\n"); else printf("ERROR\n");
 	gt = search_gt(t, 9);

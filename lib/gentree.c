@@ -61,10 +61,10 @@ GenTree* remove_gt(GenTree* t, int cod) {
 
 void print_2d(GenTree *t, int count) {
 	if(t) {
-		for (int i = 0; i < count; i++) printf("----");
+		for (int i = 0; i < count; i++) printf("---");
 		printf("%d %s\n", t->cod, t->type);
+		print_2d(t->child, count+1);
 		print_2d(t->brother, count);
-		print_2d(t->child, ++count);
 	}
 }
 
