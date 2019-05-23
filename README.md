@@ -1,6 +1,8 @@
 # Geotree - Arvore genérica de figuras geométricas
 Trabalho da disciplina Estruturas de Dados, 2019.1 PPG IC-UFF.
 
+![Imagem da arvore genérica.](img/gentree.png)
+
 ## Enunciado
 
 Trabalho Computacional: implementação das funções de árvores genéricas no número de filhos, árvores n-árias, 
@@ -23,8 +25,6 @@ figuras geométricas, incluindo seu nome;
 (b) se a figura for um triângulo ou um retângulo, as duas dimensões informadas serão a base e a altura;
 (c) se a figura for um trapézio, três dimensões serão informadas, nessa ordem, base menor, base maior e altura;
 * A estrutura deve ser totalmente destruída pelo seu programa antes da execução ser finalizada;
-
-![Imagem da arvore genérica.](img/gentree.png)
 
 Exemplo de entrada, dado por um arquivo:
 ```
