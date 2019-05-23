@@ -59,12 +59,17 @@ GenTree* remove_gt(GenTree* t, int cod) {
 	return NULL;
 }
 
-void print_gt(GenTree *t) {
+void print_2d(GenTree *t, int count) {
 	if(t) {
-		printf("%d %s \n", t->cod, t->type);
-		print_gt(t->brother);
-		print_gt(t->child);
+		for (int i = 0; i < count; i++) printf("----");
+		printf("%d %s\n", t->cod, t->type);
+		print_2d(t->brother, count);
+		print_2d(t->child, ++count);
 	}
+}
+
+void print_gt(GenTree *t) {
+	print_2d(t, 0);
 }
 
 void free_gt(GenTree* t) {
@@ -72,5 +77,29 @@ void free_gt(GenTree* t) {
 		free_gt(t->brother);
 		free_gt(t->child);
 		free(t);
+	}
+}
+
+void pre_order_gt(GenTree *t) {
+	if(t) {
+		printf("%d %s \n", t->cod, t->type);
+		print_gt(t->brother);
+		print_gt(t->child);
+	}
+}
+
+void in_order_gt(GenTree *t) {
+	if(t) {
+		print_gt(t->brother);
+		printf("%d %s \n", t->cod, t->type);
+		print_gt(t->child);
+	}
+}
+
+void post_order_gt(GenTree *t) {
+	if(t) {
+		print_gt(t->brother);
+		print_gt(t->child);
+		printf("%d %s \n", t->cod, t->type);
 	}
 }

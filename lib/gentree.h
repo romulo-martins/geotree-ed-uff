@@ -17,3 +17,6 @@ GenTree* search_gt(GenTree* t, int cod);
 GenTree* remove_gt(GenTree* t, int cod);
 void print_gt(GenTree *t);
 void free_gt(GenTree* t);
+void pre_order_gt(GenTree *t);
+void in_order_gt(GenTree *t);
+void post_order_gt(GenTree *t);
