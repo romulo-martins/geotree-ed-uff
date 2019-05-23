@@ -41,3 +41,15 @@ Exemplo de entrada, dado por um arquivo:
 
 ```
 PORÉM, SEU CÓDIGO DEVE FUNCIONAR COM QUALQUER ENTRADA QUE SEGUE O PADRÃO SUPRACITADO;
+
+## Executanto testes
+
+Para compilar, ente na pasta de *tests* e rode: 
+```
+make gentree_test
+```
+
+Para rodar:
+```
+./gentree_test
+```

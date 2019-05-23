@@ -6,14 +6,6 @@
  +=====================================+
 */
 
-// Nó da arvore genérica, possui como informação figuras geométricas
-typedef struct gentree {
-	int cod; // codigo unico do nó da arvore
-	char* type; // tipo de figura geométrica
-	void* geofig; // a informação do nó, ou seja, a figura geométrica
-	struct gentree *child, *brother; // nós filho e irmão
-} GenTree;
-
 #define CIRCLE = "CIR"
 #define SQUARE = "QUA"
 #define RECTANGLE = "RET"
@@ -69,9 +61,8 @@ GenTree* remove_gt(GenTree* t, int cod) {
 
 void print_gt(GenTree *t) {
 	if(t) {
-		printf(" %d %s ", t->cod, t->type);
+		printf("%d %s \n", t->cod, t->type);
 		print_gt(t->brother);
-		printf("\n");
 		print_gt(t->child);
 	}
 }
