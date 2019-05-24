@@ -52,3 +52,24 @@ void free_bt(BTree* tree) {
     }
 }
 
+BTree *split(BTree *tree, int i, int t){
+    BTree *z = (BTree*)malloc(sizeof(BTree));
+    BTree *y = tree->childs[i];
+    z->leaf = y->leaf;
+    z->nkeys = t-1;
+
+    for(int j = 0; j < z->nkeys; j++) z->keys[j] = y->keys[j+t];
+    if(!y->leaf){
+        for(int j = 0; j < t; j++) z->childs[j] = y->childs[j+t];
+    }
+
+    y->nkeys = t-1;
+    for(int j = tree->nkeys+1; j >= i+1; j--) tree->childs[j+1] = tree->childs[j];
+    
+    tree->childs[i+1] = z;
+    for(int j = tree->nkeys; j >= i; j--) tree->keys[j+1] = tree->keys[j];
+    tree->keys[i] = y->keys[t];
+    tree->nkeys = tree->nkeys+1;
+    return tree;
+}
+
