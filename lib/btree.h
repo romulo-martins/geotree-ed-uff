@@ -12,6 +12,7 @@ typedef struct b_tree BTree;
 BTree *find(BTree *tree, int k);
 BTree *create(int t);
 void print(BTree *tree);
-BTree *insert(BTree *tree, int t, int key);
+BTree *insert(BTree *tree, int key, int t);
 void free_bt(BTree *tree);
 BTree *split(BTree *tree, int i, int t);
+BTree *insert_nonfull(BTree *tree, int key, int t);
