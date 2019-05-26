@@ -11,8 +11,9 @@ typedef struct b_tree BTree;
 
 BTree *find(BTree *tree, int k);
 BTree *create(int t);
-void print(BTree *tree);
+void print(BTree *tree, int level);
 BTree *insert(BTree *tree, int key, int t);
 void free_bt(BTree *tree);
-BTree *split(BTree *tree, int i, int t);
+BTree *split(BTree *x, BTree *y, int i, int t);
 BTree *insert_nonfull(BTree *tree, int key, int t);
+BTree *new_bt(void);

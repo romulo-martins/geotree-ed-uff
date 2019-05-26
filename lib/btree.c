@@ -5,13 +5,15 @@
  | Arvore B (B Tree - BT) |
  +=====================================+
 */
-
+BTree *new_bt(void){
+    return NULL;
+}
 BTree *create(int t){
     BTree *node = (BTree*)malloc(sizeof(BTree));
     node->leaf = 1;
     node->nkeys = 0;
     node->keys = (int*)malloc(sizeof(int) * ((2*t)-1));
-    node->childs = (BTree*)malloc(sizeof(BTree) * (2*t));
+    node->childs = (BTree**)malloc(sizeof(BTree*) * (2*t));
     for(int i = 0; i < 2*t; i++){
         node->childs[i] = NULL;
     }
@@ -29,7 +31,7 @@ BTree *find(BTree *tree, int key){
     return find(tree->childs[i], key);
 }
 
-void print(BTree *tree){
+/* void print(BTree *tree){
     if(tree){
         int i;
         for(i = 0; i < tree->nkeys; i++){
@@ -38,10 +40,33 @@ void print(BTree *tree){
         }
         if(!tree->leaf) print(tree->childs[i]);
     }
+} */
+
+void print(BTree *tree, int level) {
+    if(tree){
+        int i;
+        for (i = 0; i < level; i++) { printf("  "); }
+
+
+        printf("|");
+        for (i = 0; i < tree->nkeys; i++) {
+            printf("%d|", tree->keys[i]);
+
+        }
+        printf("\n");
+
+
+        for (i = 0; i <= tree->nkeys; i++) {
+            if (!tree->leaf) {
+                print(tree->childs[i], level + 1);
+            }
+        }
+    }
+   
 }
 
 void free_bt(BTree* tree) {
-    if(tree->leaf){ //se for folha da free no nó
+    if(tree->leaf){                 //se for folha da free no nó
         free(tree);
     }else{
         int i = 0;
@@ -52,59 +77,62 @@ void free_bt(BTree* tree) {
     }
 }
 
-BTree *split(BTree *tree, int i, int t){
+BTree *split(BTree *x, BTree *y, int i, int t){
     BTree *z = create(t);
-    BTree *y = tree->childs[i];
-    z->leaf = y->leaf;
     z->nkeys = t-1;
-
-    for(int j = 0; j < z->nkeys; j++) z->keys[j] = y->keys[j+t];
-    if(!y->leaf){
-        for(int j = 0; j < t; j++) z->childs[j] = y->childs[j+t];
-    }
-
-    y->nkeys = t-1;
-    for(int j = tree->nkeys+1; j >= i+1; j--) tree->childs[j+1] = tree->childs[j];
     
-    tree->childs[i+1] = z;
-    for(int j = tree->nkeys; j >= i; j--) tree->keys[j+1] = tree->keys[j];
-    tree->keys[i] = y->keys[t];
-    tree->nkeys = tree->nkeys+1;
-    return tree;
+    for(int j = 0; j < t-1; j++) z->keys[j] = y->keys[j+t]; //copia as chaves de y depois da chave do meio para z
+    if(!y->leaf){
+        for(int j = 0; j < t; j++){
+            z->childs[j] = y->childs[j+t];                  //copia os filhos depois da chave do meio para z
+            free(y->childs[j+t]);
+        } 
+    }
+    y->nkeys = t-1;                                                             //atualiza o numero de chaves de y para a primeira metade de y
+    for(int j = x->nkeys+1; j >= (i+1); j--) x->childs[j+1] = x->childs[j];     //como o no tera um novo filho, cria espaço para novo filho
+    x->childs[i+1] = z;                                                 //faz z ser filho do novo nó
+    for(int j = (x->nkeys); j >= i; j--) x->keys[j+1] = x->keys[j];     //move todas as chaves maiores que key
+    x->keys[i] = y->keys[t-1];                                          //copia a chave do meio de y para x
+    x->nkeys++;
+    return x;
 }
 
-BTree *insert_nonfull(BTree *tree, int key, int t){
-    int i = tree->nkeys;
-    if(tree->leaf){
-        while(i >= 0 && key < tree->keys[i]){
-            tree->keys[i+1] = tree->keys[i];
+BTree *insert_nonfull(BTree *x, int key, int t){
+    int i = x->nkeys-1;
+    if(x->leaf){
+        while(i >= 0 && key < x->keys[i]){
+            x->keys[i+1] = x->keys[i];
             i--;
         }
-        tree->keys[i+1] = key;
-        tree->nkeys++;
+        x->keys[i+1] = key;
+        x->nkeys += 1;
     }else{
-        while(i >= 0 && key < tree->keys[i]) i--;
+        while(i >= 0 && key < x->keys[i]) i--;
         i += 1;
-        if(tree->childs[i]->nkeys == (2*t)-1){
-            tree = split(tree, i, t);
-            if(key > tree->keys[i]) i += 1;
+        if(x->childs[i]->nkeys == (2*t)-1){
+            x = split(x, x->childs[i], i, t);
+            if(key > x->keys[i]) i += 1;
         }
-        tree->childs[i] = insert_nonfull(tree->childs[i], key, t);
+        x->childs[i] = insert_nonfull(x->childs[i], key, t);
     }
-    return tree;
+    return x;
 }
 
 BTree *insert(BTree *tree, int key, int t){
-    BTree *root = tree;
-    if(root->nkeys == (2*t)-1){
-        BTree *s = create(t);
-        tree = s;
-        s->leaf = 0;
-        s->childs[0] = root;
-        s = split(s, 0, t);
-        s = insert_nonfull(s, key, t);
-        return s;
+    if(!tree){
+        tree = create(t);
+        tree->keys[0] = key;
+        tree->nkeys++;
+        return tree;
     }
-    return insert_nonfull(root, key, t);
+    if(tree->nkeys == ((2*t)-1)){
+        BTree *new = create(t);
+        new->childs[0] = tree;
+        new = split(new, tree, 0, t);
+        new = insert_nonfull(tree, key, t);
+        return new;
+    }
+    tree = insert_nonfull(tree, key, t);
+    return tree;
 }
 
