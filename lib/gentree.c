@@ -12,11 +12,10 @@ GenTree* new_gt(void) {
 }
 
 
-GenTree *create_node_gt(int cod, int cod_parent, char* type, void* geofig) {
+GenTree *create_node_gt(int cod, int cod_parent, void* geofig) {
 	GenTree *node = (GenTree*) malloc(sizeof(GenTree));
 	node->cod = cod;
 	node->cod_parent = cod_parent;
-	node->type = type;
 	node->geofig = geofig;
 	node->child = NULL;
 	node->brother = NULL;
@@ -24,14 +23,17 @@ GenTree *create_node_gt(int cod, int cod_parent, char* type, void* geofig) {
 }
 
 
-GenTree* insert_gt(GenTree* t, int cod_geo, int cod_parent, char* type, void* geofig) {
-	if(search_gt(t, cod_geo)) return t;
+GenTree* insert_gt(GenTree* t, int cod, int cod_parent, void* geofig) {
+	if(search_gt(t, cod)) return t;
 
-	GenTree *node = create_node_gt(cod_geo, cod_parent, type, geofig); // novo nó a ser inserido
-	if(!t || !cod_parent) return node; // insere primeiro elemento
+	GenTree *node = create_node_gt(cod, cod_parent, geofig); // novo nó a ser inserido
+	if(!t || cod_parent == 0) return node; // insere primeiro elemento
 
 	GenTree *parent = search_gt(t, cod_parent);
-	if(!parent) return t; // não encontrou nenhum pai, não faz nada
+	if(!parent) { // não encontrou nenhum pai, não faz nada
+		printf("Error: o pai informado de codigo %d, não foi encontrado.\n", cod_parent);
+		return t;	
+	}
 	
 	if(!parent->child) {
 		parent->child = node;
@@ -54,41 +56,65 @@ GenTree* search_gt(GenTree* t, int cod) {
 }
 
 
+void parent_to_child(GenTree *parent, GenTree *child) {
+	if(!child) return;
+
+	GenTree *last = parent->child;
+	while(last->brother) last = last->brother;
+	last->brother = child;
+
+	GenTree *curr = child;
+	while(curr) { // altera o código do novo filho e irmãos
+		curr->cod_parent = parent->cod;
+		curr = curr->brother;
+	}
+}
+
+GenTree *remove_root(GenTree *t) {
+	GenTree *temp = t;
+	if(t->brother) {
+		parent_to_child(t->brother, t->child);
+		t = t->brother;
+	} else {
+		t = t->child;
+		GenTree *p = t;
+		while(p) {
+			p->cod_parent = 0;
+			p = p->brother;
+		}
+	}
+	free(temp);
+	return t;
+}
+
+
 GenTree* remove_gt(GenTree* t, int cod) {
 	GenTree *node = search_gt(t, cod);
-	GenTree *parent = search_gt(t, node->cod_parent);
+	if(!node) {
+		printf("Error: o elemento de código %d não existe na arvore.\n", cod);
+		return t;
+	}
+	// TODO: tratar remoção na raiz
+	// if(node->cod_parent == 0) return remove_root(t);
 
+	GenTree *parent = search_gt(t, node->cod_parent);
 	GenTree *curr = parent->child, *prev = NULL;
+
 	while((curr->brother) && (curr->cod != cod)) {
 		prev = curr;
 		curr = curr->brother;
 	}
 
-	if(!prev) {
-		if(node->child) {
-			parent->child = node->child;
-			GenTree *temp = parent->child;
-			while(temp->brother) temp = temp->brother;
-			temp->brother = node->brother;
-		} else {
-			parent->child = node->brother;
-		}
+	if(!prev) { // neste caso é o primeiro filho na lista de filhos.
+		parent->child = node->brother;
+		parent_to_child(parent, node->child);
 		free(node);
 		return t;
 	} 
 
-	if(curr->brother) {
-		if(curr->child) {
-			prev->brother = curr->child;
-			GenTree *temp = curr->child;
-			while(temp->brother) temp = temp->brother;
-			temp->brother = curr->brother;
-		} else {
-			prev->brother = curr->brother;
-		}
-		free(curr);
-	}
-
+	prev->brother = curr->brother; // neste caso é algum irmão do primeiro filho.
+	parent_to_child(parent, curr->child);
+	free(curr);
 	return t;
 }
 
@@ -96,7 +122,9 @@ GenTree* remove_gt(GenTree* t, int cod) {
 void print_2d(GenTree *t, int count) {
 	if(t) {
 		for (int i = 0; i < count; i++) printf("---");
-		printf("%d %s\n", t->cod, t->type);
+		printf("%d %d", t->cod, t->cod_parent);
+		printf(" %s ", (char*)t->geofig); // remover depois
+		printf("\n");
 		print_2d(t->child, count+1);
 		print_2d(t->brother, count);
 	}
@@ -119,7 +147,7 @@ void free_gt(GenTree* t) {
 
 void pre_order_gt(GenTree *t) {
 	if(t) {
-		printf("%d %s \n", t->cod, t->type);
+		printf("%d \n", t->cod);
 		print_gt(t->brother);
 		print_gt(t->child);
 	}
@@ -129,7 +157,7 @@ void pre_order_gt(GenTree *t) {
 void in_order_gt(GenTree *t) {
 	if(t) {
 		print_gt(t->brother);
-		printf("%d %s \n", t->cod, t->type);
+		printf("%d \n", t->cod);
 		print_gt(t->child);
 	}
 }
@@ -139,6 +167,6 @@ void post_order_gt(GenTree *t) {
 	if(t) {
 		print_gt(t->brother);
 		print_gt(t->child);
-		printf("%d %s \n", t->cod, t->type);
+		printf("%d \n", t->cod);
 	}
 }
