@@ -63,12 +63,17 @@ GenTree* search_gt(GenTree* t, int cod) {
 }
 
 
+// Associa um pai a um novo filho
 void parent_to_child(GenTree *parent, GenTree *child) {
 	if(!child) return;
 
-	GenTree *last = parent->child;
-	while(last->brother) last = last->brother;
-	last->brother = child;
+	if(!parent->child) { // não possui outro filho, associa o novo filho
+		parent->child = child;
+	} else { // já possui filhos, torna o novo filho irmão do ultimo filho 
+		GenTree *last = parent->child; 
+		while(last->brother) last = last->brother;
+		last->brother = child;
+	}
 
 	GenTree *curr = child;
 	while(curr) { // altera o código do novo filho e irmãos
@@ -77,17 +82,17 @@ void parent_to_child(GenTree *parent, GenTree *child) {
 	}
 }
 
-GenTree *remove_root(GenTree *t) {
+
+// Remove o nó raiz da arvore
+GenTree* remove_root(GenTree *t) {
 	GenTree *temp = t;
-	if(t->brother) {
-		parent_to_child(t->brother, t->child);
-		t = t->brother;
-	} else {
+	if(t->child) {
+		GenTree *brother = t->child->brother;
 		t = t->child;
-		GenTree *p = t;
-		while(p) {
-			p->cod_parent = 0;
-			p = p->brother;
+		t->cod_parent = 0;
+		t->brother = NULL;
+		if(brother) {
+			parent_to_child(t, brother);
 		}
 	}
 	free(temp);
@@ -101,8 +106,7 @@ GenTree* remove_gt(GenTree* t, int cod) {
 		printf("Error: o elemento de código %d não existe na arvore.\n", cod);
 		return t;
 	}
-	// TODO: tratar remoção na raiz
-	// if(node->cod_parent == 0) return remove_root(t);
+	if(node->cod_parent == 0) return remove_root(t);
 
 	GenTree *parent = search_gt(t, node->cod_parent);
 	GenTree *curr = parent->child, *prev = NULL;
@@ -130,7 +134,7 @@ void print_2d(GenTree *t, int count) {
 	if(t) {
 		for (int i = 0; i < count; i++) printf("---");
 		printf("%d (%d)", t->cod, t->cod_parent);
-		printf(" %s ", (char*)t->geofig); // remover depois
+		printf(" %s ", (char*)t->geofig); // TODO: remover depois
 		printf("\n");
 		print_2d(t->child, count+1);
 		print_2d(t->brother, count);

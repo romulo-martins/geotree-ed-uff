@@ -2,16 +2,15 @@
 
 // Interface dos testes
 GenTree* gentree_factory(void);
-void search_test(GenTree *t);
-void insert_test(GenTree *t);
-void remove_test(GenTree *t);
+void insert_test(void);
+void search_test(void);
+void remove_test(void);
 
+// Main dos testes
 int main(int argc, char const *argv[]) {
-	GenTree *t = gentree_factory();
-	insert_test(t);
-	search_test(t);
-	// remove_test(t);
-	free_gt(t);
+	insert_test();
+	search_test();
+	remove_test();
 
 	return 0;
 }
@@ -54,41 +53,47 @@ GenTree* gentree_factory(void) {
 }
 
 // Realiza os testes de buscas
-void search_test(GenTree *t) {
+void search_test(void) {
 	printf("\nTeste de buscas ...\n");
 
+	GenTree *t = gentree_factory();
 	if(search_gt(t, 4)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 9)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 2)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 3)) printf("OK\n"); else printf("ERROR\n");
+	
+	free_gt(t);
 }
 
 // Realiza os testes de inserção
-void insert_test(GenTree *t) {
+void insert_test(void) {
 	printf("\nTeste de inserção ...\n");
 
+	GenTree *t = gentree_factory();
 	t = insert_gt(t, 12, 0, "RET"); // insere novo elemento na raiz
 	t = insert_gt(t, 13, 6, "RET");
 	t = insert_gt(t, 14, 6, "CIR");
-	t = insert_gt(t, 15, 3, "QUA");
-	t = insert_gt(t, 16, 3, "TRI");
+	t = insert_gt(t, 15, 7, "QUA");
+	t = insert_gt(t, 16, 7, "TRI");
 	if(search_gt(t, 12)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 13)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 14)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 15)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 16)) printf("OK\n"); else printf("ERROR\n");
+
+	free_gt(t);
 }
 
 // Realiza os testes de remoção
-void remove_test(GenTree *t) {
+void remove_test(void) {
 	printf("\nTeste de remoção ...\n");
+	
+	GenTree *t = gentree_factory();
+	t = remove_gt(t, 1); // remove da raiz
+	if(!search_gt(t, 1)) printf("OK\n"); else printf("ERROR\n");
+	if(search_gt(t, 2)) printf("OK\n"); else printf("ERROR\n");
 
-	// TODO: falta tratar remoção na raiz
-	// t = remove_gt(t, 1);
-	// if(!search_gt(t, 1)) printf("OK\n"); else printf("ERROR\n");
-	// if(search_gt(t, 2)) printf("OK\n"); else printf("ERROR\n");
-
-	t = remove_gt(t, 2);
+	t = remove_gt(t, 2); // remove da nova raiz
 	if(!search_gt(t, 2)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 6)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 3)) printf("OK\n"); else printf("ERROR\n");
@@ -107,4 +112,6 @@ void remove_test(GenTree *t) {
 	if(search_gt(t, 9)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 8)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 10)) printf("OK\n"); else printf("ERROR\n");
+
+	free_gt(t);
 }
