@@ -12,7 +12,7 @@ GenTree* new_gt(void) {
 }
 
 
-GenTree *create_node_gt(int cod, int cod_parent, void* geofig) {
+GenTree* _create_node_gt(int cod, int cod_parent, void* geofig) {
 	GenTree *node = (GenTree*) malloc(sizeof(GenTree));
 	node->cod = cod;
 	node->cod_parent = cod_parent;
@@ -24,9 +24,12 @@ GenTree *create_node_gt(int cod, int cod_parent, void* geofig) {
 
 
 GenTree* insert_gt(GenTree* t, int cod, int cod_parent, void* geofig) {
-	if(search_gt(t, cod)) return t;
+	if(search_gt(t, cod)) {
+		printf("Error: um elemento de codigo %d já existe, informe um outro código.\n", cod);
+		return t;	
+	} 
 
-	GenTree *node = create_node_gt(cod, cod_parent, geofig); // novo nó a ser inserido
+	GenTree *node = _create_node_gt(cod, cod_parent, geofig); // novo nó a ser inserido
 	if(cod_parent == 0) { // insere o elemento na raiz
 		node->cod_parent = 0;
 		if(t) {
@@ -38,7 +41,7 @@ GenTree* insert_gt(GenTree* t, int cod, int cod_parent, void* geofig) {
 
 	GenTree *parent = search_gt(t, cod_parent);
 	if(!parent) { // não encontrou o pai informado, não faz nada
-		printf("Error: o pai informado de codigo %d, não foi encontrado.\n", cod_parent);
+		printf("Error: o pai informado, de codigo %d, não foi encontrado.\n", cod_parent);
 		return t;	
 	}
 	
@@ -63,8 +66,7 @@ GenTree* search_gt(GenTree* t, int cod) {
 }
 
 
-// Associa um pai a um novo filho
-void parent_to_child(GenTree *parent, GenTree *child) {
+void _parent_to_child(GenTree *parent, GenTree *child) {
 	if(!child) return;
 
 	if(!parent->child) { // não possui outro filho, associa o novo filho
@@ -83,8 +85,7 @@ void parent_to_child(GenTree *parent, GenTree *child) {
 }
 
 
-// Remove o nó raiz da arvore
-GenTree* remove_root(GenTree *t) {
+GenTree* _remove_root(GenTree *t) {
 	GenTree *temp = t;
 	if(t->child) {
 		GenTree *brother = t->child->brother;
@@ -92,7 +93,7 @@ GenTree* remove_root(GenTree *t) {
 		t->cod_parent = 0;
 		t->brother = NULL;
 		if(brother) {
-			parent_to_child(t, brother);
+			_parent_to_child(t, brother);
 		}
 	}
 	free(temp);
@@ -106,25 +107,25 @@ GenTree* remove_gt(GenTree* t, int cod) {
 		printf("Error: o elemento de código %d não existe na arvore.\n", cod);
 		return t;
 	}
-	if(node->cod_parent == 0) return remove_root(t);
+	if(node->cod_parent == 0) return _remove_root(t);
 
 	GenTree *parent = search_gt(t, node->cod_parent);
 	GenTree *curr = parent->child, *prev = NULL;
 
-	while((curr->brother) && (curr->cod != cod)) {
+	while((curr->brother) && (curr->cod != cod)) { // busca o nó na lista de irmãos
 		prev = curr;
 		curr = curr->brother;
 	}
 
 	if(!prev) { // neste caso é o primeiro filho na lista de filhos.
 		parent->child = node->brother;
-		parent_to_child(parent, node->child);
+		_parent_to_child(parent, node->child);
 		free(node);
 		return t;
 	} 
 
 	prev->brother = curr->brother; // neste caso é algum irmão do primeiro filho.
-	parent_to_child(parent, curr->child);
+	_parent_to_child(parent, curr->child);
 	free(curr);
 	return t;
 }
@@ -134,7 +135,7 @@ void print_2d(GenTree *t, int count) {
 	if(t) {
 		for (int i = 0; i < count; i++) printf("---");
 		printf("%d (%d)", t->cod, t->cod_parent);
-		printf(" %s ", (char*)t->geofig); // TODO: remover depois
+		printf(" %s ", (char*)t->geofig); // TODO: remover depois, pois iremos alterar para figura geométrica
 		printf("\n");
 		print_2d(t->child, count+1);
 		print_2d(t->brother, count);

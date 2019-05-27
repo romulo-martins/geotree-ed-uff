@@ -1,5 +1,5 @@
-#ifndef _GENTREE_H
-#define _GENTREE_H
+#ifndef GENTREE_H
+#define GENTREE_H
 
 #include <stdlib.h>
 #include <stdio.h>
