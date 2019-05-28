@@ -75,5 +75,4 @@ void print_figura(TFIGURA* f) {
 	if(!strcmp(f->tipo, TRIANGULO)) printf("[%s %.2f %.2f]\n",f->tipo, f->base_menor, f->altura); 
 	if(!strcmp(f->tipo, RETANGULO)) printf("[%s %.2f %.2f]\n",f->tipo, f->base_menor, f->altura); 
 	if(!strcmp(f->tipo, TRAPEZIO)) printf("[%s %.2f %.2f %.2f]\n",f->tipo, f->base_menor, f->base_maior, f->altura);
-	printf("\n");
 }
