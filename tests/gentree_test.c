@@ -1,3 +1,7 @@
+/*
+Realiza testes das operações básicas da árvore, sem levar em consideração as figuras geométricas.
+*/
+
 #include "../lib/gentree.h"
 
 // Interface dos testes
@@ -39,18 +43,19 @@ Saida (apenas código):
 */
 GenTree* gentree_factory(void) {
 	GenTree *t = new_gt();
-	t = insert_gt(t, 1, 0, "TRI");
-	t = insert_gt(t, 2, 1, "RET");
-	t = insert_gt(t, 3, 1, "TRA");
-	t = insert_gt(t, 4, 1, "CIR");
-	t = insert_gt(t, 5, 4, "QUA");
-	t = insert_gt(t, 6, 2, "RET");
-	t = insert_gt(t, 7, 5, "TRA");
-	t = insert_gt(t, 8, 5, "CIR");
-	t = insert_gt(t, 9, 4, "QUA");
-	t = insert_gt(t, 10, 1, "TRI");
+	t = insert_gt(t, 1, 0, NULL);
+	t = insert_gt(t, 2, 1, NULL);
+	t = insert_gt(t, 3, 1, NULL);
+	t = insert_gt(t, 4, 1, NULL);
+	t = insert_gt(t, 5, 4, NULL);
+	t = insert_gt(t, 6, 2, NULL);
+	t = insert_gt(t, 7, 5, NULL);
+	t = insert_gt(t, 8, 5, NULL);
+	t = insert_gt(t, 9, 4, NULL);
+	t = insert_gt(t, 10, 1, NULL);
 	return t;	
 }
+
 
 // Realiza os testes de buscas
 void search_test(void) {
@@ -64,6 +69,7 @@ void search_test(void) {
 	
 	free_gt(t);
 }
+
 
 // Realiza os testes de inserção
 void insert_test(void) {
@@ -83,6 +89,7 @@ void insert_test(void) {
 
 	free_gt(t);
 }
+
 
 // Realiza os testes de remoção
 void remove_test(void) {

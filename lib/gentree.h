@@ -4,12 +4,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "figuras.h"
 
 // Nó da arvore genérica, possui como informação figuras geométricas
 typedef struct gentree {
 	int cod; // codigo unico do nó da arvore
 	int cod_parent;
-	void* geofig; // a informação do nó, ou seja, a figura geométrica
+	TFIGURA* geofig; // a informação do nó, ou seja, a figura geométrica
 	struct gentree *child, *brother; // nós filho e irmão
 } GenTree;
 
