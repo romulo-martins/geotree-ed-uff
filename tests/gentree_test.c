@@ -39,16 +39,16 @@ Saida (apenas código):
 */
 GenTree* gentree_factory(void) {
 	GenTree *t = new_gt();
-	t = insert_gt(t, 1, 0, "TRI");
-	t = insert_gt(t, 2, 1, "RET");
-	t = insert_gt(t, 3, 1, "TRA");
-	t = insert_gt(t, 4, 1, "CIR");
-	t = insert_gt(t, 5, 4, "QUA");
-	t = insert_gt(t, 6, 2, "RET");
-	t = insert_gt(t, 7, 5, "TRA");
-	t = insert_gt(t, 8, 5, "CIR");
-	t = insert_gt(t, 9, 4, "QUA");
-	t = insert_gt(t, 10, 1, "TRI");
+	t = insert_gt(t, 1, 0, NULL);
+	t = insert_gt(t, 2, 1, NULL);
+	t = insert_gt(t, 3, 1, NULL);
+	t = insert_gt(t, 4, 1, NULL);
+	t = insert_gt(t, 5, 4, NULL);
+	t = insert_gt(t, 6, 2, NULL);
+	t = insert_gt(t, 7, 5, NULL);
+	t = insert_gt(t, 8, 5, NULL);
+	t = insert_gt(t, 9, 4, NULL);
+	t = insert_gt(t, 10, 1, NULL);
 	return t;	
 }
 
@@ -70,11 +70,11 @@ void insert_test(void) {
 	printf("\nTeste de inserção ...\n");
 
 	GenTree *t = gentree_factory();
-	t = insert_gt(t, 12, 0, "RET"); // insere novo elemento na raiz
-	t = insert_gt(t, 13, 6, "RET");
-	t = insert_gt(t, 14, 6, "CIR");
-	t = insert_gt(t, 15, 7, "QUA");
-	t = insert_gt(t, 16, 7, "TRI");
+	t = insert_gt(t, 12, 0, NULL); // insere novo elemento na raiz
+	t = insert_gt(t, 13, 6, NULL);
+	t = insert_gt(t, 14, 6, NULL);
+	t = insert_gt(t, 15, 7, NULL);
+	t = insert_gt(t, 16, 7, NULL);
 	if(search_gt(t, 12)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 13)) printf("OK\n"); else printf("ERROR\n");
 	if(search_gt(t, 14)) printf("OK\n"); else printf("ERROR\n");

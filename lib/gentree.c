@@ -134,9 +134,7 @@ GenTree* remove_gt(GenTree* t, int cod) {
 void print_2d(GenTree *t, int count) {
 	if(t) {
 		for (int i = 0; i < count; i++) printf("---");
-		printf("%d (%d)", t->cod, t->cod_parent);
-		printf(" %s ", (char*)t->geofig); // TODO: remover depois, pois iremos alterar para figura geométrica
-		printf("\n");
+		printf("%d (%d) \n", t->cod, t->cod_parent);
 		print_2d(t->child, count+1);
 		print_2d(t->brother, count);
 	}
