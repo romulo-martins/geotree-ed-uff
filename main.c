@@ -3,13 +3,13 @@
 void show_welcome(void) {
 	printf("------------------------------------------\n");
 	printf(" Bem vindo a programa de arvore genérica. \n");
-	printf(" * Ajuda: --help ou -h                    \n");
-	printf(" * Sair: exit ou quit                     \n");
+	printf("         Ajuda: --help ou -h              \n");
 	printf("------------------------------------------\n");
 	printf("Execute algum comando ...\n");
 }
 
 void show_help_opts(void) {
+	printf("Operações da arvore genérica: \n");
 	printf("gentree [insert (cod)/(cod-parent)/(figure)]\n");
 	printf("        [delete (cod)]                      \n");
 	printf("        [search (cod)]                      \n");
@@ -17,6 +17,7 @@ void show_help_opts(void) {
 	printf("        [destroy]                           \n");
 	printf("        [convert --avl --btree]             \n");
 	printf("        [load (path)]                       \n");
+	printf("Para sair do programa: exit ou quit\n");
 }
 
 GenTree* gentree_cmds(GenTree* t) {
@@ -42,7 +43,6 @@ GenTree* gentree_cmds(GenTree* t) {
 	} 
 	if(strcmp(cmd, "destroy") == 0)  {
 		free_gt(t);
-		printf("Arvore destruida com sucesso.\n");
 		return NULL;
 	}
 	if(strcmp(cmd, "convert") == 0) printf("TODO: Conversão\n"); // TODO: fazer a conversão

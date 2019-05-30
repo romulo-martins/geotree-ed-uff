@@ -2,7 +2,7 @@
 
 int main(int argc, char const *argv[]) {
 	GenTree *t = new_gt();
-	t = load_gt(t, "in/exemplo-AG.txt");
+	t = load_gt(t, "in/exemplo.txt");
 	print_gt(t);
 
 	return 0;

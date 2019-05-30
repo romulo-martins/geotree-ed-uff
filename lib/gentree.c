@@ -36,7 +36,6 @@ GenTree* insert_gt(GenTree* t, int cod, int cod_parent, void* geofig) {
 			t->cod_parent = node->cod;
 			node->child = t;
 		}
-		printf("Inserção realizada com sucesso!\n");
 		return node;
 	} 
 
@@ -53,7 +52,6 @@ GenTree* insert_gt(GenTree* t, int cod, int cod_parent, void* geofig) {
 		while(child->brother) child = child->brother; // pega o ultimo nó filho
 		child->brother = node; // associa ao ultimo irmão do pai em comum
 	}
-	printf("Inserção realizada com sucesso!\n");
 	return t;
 }
 
@@ -166,15 +164,14 @@ void free_gt(GenTree* t) {
 
 /*
 Carrega um arquivo .txt com os elementos a ser inseridos na arvore genérica.
-
-O arquivo possui o seguinte formato: 
+O arquivo deve possuir o seguinte formato: 
 (codigo unico da figura)/(código do pai)/(tipo da figura e suas dimensoes)
 
 Exemplo:
 	1/0/TRI 3 2
 	2/1/CIR 4
+	3/2/RET 2 2
 	etc ...
-
 */
 GenTree* load_gt(GenTree *t, char* path) {
 	int str_size = 51; // cada linha possui entre 10 a 13 caracteres, mas joguei 50 só pra garantir 
