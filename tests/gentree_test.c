@@ -1,3 +1,7 @@
+/*
+Realiza testes das operações básicas da árvore, sem levar em consideração as figuras geométricas.
+*/
+
 #include "../lib/gentree.h"
 
 // Interface dos testes
@@ -52,6 +56,7 @@ GenTree* gentree_factory(void) {
 	return t;	
 }
 
+
 // Realiza os testes de buscas
 void search_test(void) {
 	printf("\nTeste de buscas ...\n");
@@ -64,6 +69,7 @@ void search_test(void) {
 	
 	free_gt(t);
 }
+
 
 // Realiza os testes de inserção
 void insert_test(void) {
@@ -83,6 +89,7 @@ void insert_test(void) {
 
 	free_gt(t);
 }
+
 
 // Realiza os testes de remoção
 void remove_test(void) {

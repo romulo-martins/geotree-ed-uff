@@ -131,18 +131,23 @@ GenTree* remove_gt(GenTree* t, int cod) {
 }
 
 
-void print_2d(GenTree *t, int count) {
+void print_2d(GenTree *t, int count, int wfigs) {
 	if(t) {
 		for (int i = 0; i < count; i++) printf("---");
-		printf("%d (%d) \n", t->cod, t->cod_parent);
-		print_2d(t->child, count+1);
-		print_2d(t->brother, count);
+		printf(" %d (%d) ", t->cod, t->cod_parent);
+		if(wfigs) print_figura(t->geofig); else printf("\n");
+		print_2d(t->child, count+1, wfigs);
+		print_2d(t->brother, count, wfigs);
 	}
+}
+
+void print_gt_wfigs(GenTree *t) {
+	print_2d(t, 0, 1);
 }
 
 
 void print_gt(GenTree *t) {
-	print_2d(t, 0);
+	print_2d(t, 0, 0);
 }
 
 
