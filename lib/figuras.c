@@ -70,9 +70,9 @@ TFIGURA* criar_trapezio(char* tipo, float base_menor, float base_maior, float al
 }
 
 void print_figura(TFIGURA* f) {
-	if(!strcmp(f->tipo, CIRCULO)) printf("[%s %.2f]\n",f->tipo, f->dim); 
-	if(!strcmp(f->tipo, QUADRADO)) printf("[%s %.2f]\n",f->tipo, f->dim); 
-	if(!strcmp(f->tipo, TRIANGULO)) printf("[%s %.2f %.2f]\n",f->tipo, f->base_menor, f->altura); 
-	if(!strcmp(f->tipo, RETANGULO)) printf("[%s %.2f %.2f]\n",f->tipo, f->base_menor, f->altura); 
-	if(!strcmp(f->tipo, TRAPEZIO)) printf("[%s %.2f %.2f %.2f]\n",f->tipo, f->base_menor, f->base_maior, f->altura);
+	if(!strcmp(f->tipo, CIRCULO)) printf("[%s %.2f %.2f]\n",f->tipo, f->dim, f->area); 
+	if(!strcmp(f->tipo, QUADRADO)) printf("[%s %.2f %.2f]\n",f->tipo, f->dim, f->area); 
+	if(!strcmp(f->tipo, TRIANGULO)) printf("[%s %.2f %.2f %.2f]\n",f->tipo, f->base_menor, f->altura, f->area); 
+	if(!strcmp(f->tipo, RETANGULO)) printf("[%s %.2f %.2f %.2f]\n",f->tipo, f->base_menor, f->altura, f->area); 
+	if(!strcmp(f->tipo, TRAPEZIO)) printf("[%s %.2f %.2f %.2f %.2f]\n",f->tipo, f->base_menor, f->base_maior, f->altura, f->area);
 }

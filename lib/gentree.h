@@ -22,5 +22,6 @@ GenTree* remove_gt(GenTree* t, int cod);
 void print_gt(GenTree *t);
 void print_gt_wfigs(GenTree *t);
 void free_gt(GenTree* t);
+GenTree* load_gt(GenTree *t, char* path);
 
 #endif
