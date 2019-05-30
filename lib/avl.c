@@ -13,6 +13,10 @@ int altura_arvore_avl(TAVL *a);
 int maior(int altura_esq, int altura_dir);
 int calcula_balanceamento(TAVL *a);
 TAVL* cria_no_avl(int codigo, void* geofig);
+void imprime_arvore_avl(TAVL *a, int espaco);
+
+
+#define COUNT 10
 
 
 //Função recursiva para adicionar um nó em uma árvore AVL
@@ -108,3 +112,24 @@ TAVL* cria_no_avl(int codigo, void* geofig){
 TAVL* inicializa_avl(void){
 	return NULL;
 }
+
+
+void imprime_nos_avl(TAVL *a, int espaco) { 
+ 
+    if (a == NULL) 
+        return; 
+
+    espaco += COUNT; 
+  
+    print2DUtil(a->dir, espaco);  
+    printf("\n"); 
+    for (int i = COUNT; i < espaco; i++) 
+        printf(" "); 
+    printf("%d\n", a->codigo); 
+ 
+    print2DUtil(a->esq, espaco); 
+} 
+  
+void imprime_arvore_avl(TAVL *a) { 
+   imrpime_nos_avl(a, 0); 
+} 
