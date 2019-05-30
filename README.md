@@ -20,7 +20,7 @@ trapézio e triângulo:
 * A entrada será fornecida por meio de arquivos texto. O arquivo texto será composto das seguintes informações, 
 separadas por '/': código único, código único do pai (sendo que a raiz tem código do pai igual a zero) e as 
 figuras geométricas, incluindo seu nome;
-* as dimensões das figuras geométricas obedecerão ao seguinte padrão: 
+* As dimensões das figuras geométricas obedecerão ao seguinte padrão: 
 (a) se a figura for um círculo ou um quadrado, uma única dimensão será informada (ou o raio, ou o lado, respectivamente); 
 (b) se a figura for um triângulo ou um retângulo, as duas dimensões informadas serão a base e a altura;
 (c) se a figura for um trapézio, três dimensões serão informadas, nessa ordem, base menor, base maior e altura;
