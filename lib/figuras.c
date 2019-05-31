@@ -89,13 +89,20 @@ TFIGURA* editar_no(TFIGURA* f){
 	if(modificacao == FIGURA){
 		return editar_figura(f);
 	} else if(modificacao == DIMENSAO){
-		return editar_dimensoes_figura(f);
+		return editar_dimensoes_figura(f->tipo, f);
 	} 
 	
 	printf("Valor inválido");
 	return f;
 }
 
+TFIGURA* editar_dimensoes_figura(char* tipo, TFIGURA *f){
+	if(!strcmp(tipo, CIRCULO))  return editar_circulo(CIRCULO, f);
+	if(!strcmp(tipo, QUADRADO)) return editar_quadrado(QUADRADO, f);
+	if(!strcmp(tipo, TRIANGULO))return editar_triangulo(TRIANGULO, f);
+	if(!strcmp(tipo, RETANGULO))return editar_retangulo(RETANGULO, f);
+	if(!strcmp(tipo, TRAPEZIO)) return editar_trapezio(TRAPEZIO, f);
+}
 
 TFIGURA* editar_figura(TFIGURA *f){
 	char tipo[3];
@@ -108,11 +115,7 @@ TFIGURA* editar_figura(TFIGURA *f){
 	
 	gets(tipo);
 	
-	if(!strcmp(tipo, CIRCULO))  return editar_circulo(CIRCULO, f);
-	if(!strcmp(tipo, QUADRADO)) return editar_quadrado(QUADRADO, f);
-	if(!strcmp(tipo, TRIANGULO))return editar_triangulo(TRIANGULO, f);
-	if(!strcmp(tipo, RETANGULO))return editar_retangulo(RETANGULO, f);
-	if(!strcmp(tipo, TRAPEZIO)) return editar_trapezio(TRAPEZIO, f);
+	editar_dimensoes_figura(tipo, f);
 }
 
 
