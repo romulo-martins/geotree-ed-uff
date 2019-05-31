@@ -91,12 +91,12 @@ GenTree* _remove_root(GenTree *t) {
 		t = t->child;
 		t->cod_parent = 0;
 		t->brother = NULL;
-		if(brother) {
-			_parent_to_child(t, brother);
-		}
+		if(brother) _parent_to_child(t, brother);
+		free(temp);
+		return t;
 	}
-	free(temp);
-	return t;
+	free(t);
+	return NULL;
 }
 
 
