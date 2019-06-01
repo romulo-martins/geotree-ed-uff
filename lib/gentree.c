@@ -158,6 +158,7 @@ void free_gt(GenTree* t) {
 	if(t) {
 		free_gt(t->brother);
 		free_gt(t->child);
+		free(t->geofig);
 		free(t);
 	}
 }
