@@ -82,43 +82,9 @@ void print_figura(TFIGURA* f) {
 	if(!strcmp(f->tipo, TRAPEZIO)) printf("[%s %.2f %.2f %.2f %.2f]\n",f->tipo, f->base_menor, f->base_maior, f->altura, f->area);
 }
 
-TFIGURA* editar_no(TFIGURA* f){
-	int modificacao;
-	printf("O que deseja modificar? 0 - trocar a figura. 1 - alterar dimensões da figura");
-	scanf("%d", &modificacao);
-	if(modificacao == FIGURA){
-		return editar_figura(f);
-	} else if(modificacao == DIMENSAO){
-		return editar_dimensoes_figura(f->tipo, f);
-	} 
-	
-	printf("Valor inválido");
-	return f;
-}
+/* Funções de edição para cada figura*/
 
-TFIGURA* editar_dimensoes_figura(char* tipo, TFIGURA *f){
-	if(!strcmp(tipo, CIRCULO))  return editar_circulo(CIRCULO, f);
-	if(!strcmp(tipo, QUADRADO)) return editar_quadrado(QUADRADO, f);
-	if(!strcmp(tipo, TRIANGULO))return editar_triangulo(TRIANGULO, f);
-	if(!strcmp(tipo, RETANGULO))return editar_retangulo(RETANGULO, f);
-	if(!strcmp(tipo, TRAPEZIO)) return editar_trapezio(TRAPEZIO, f);
-}
-
-TFIGURA* editar_figura(TFIGURA *f){
-	char tipo[3];
-	printf("Qual o tipo da figura?\n");
-	printf("CIR para círculo.\n");
-	printf("QUA para quadrado.\n");
-	printf("RET para retângulo.\n");
-	printf("TRA para trapézio.\n");
-	printf("TRI para triângulo.\n");
-	
-	gets(tipo);
-	
-	editar_dimensoes_figura(tipo, f);
-}
-
-
+//Editar raio e área do círculo
 TFIGURA* editar_circulo(char* tipo, TFIGURA *f){
 	float raio;
 	strcpy(f->tipo, tipo);
@@ -129,6 +95,7 @@ TFIGURA* editar_circulo(char* tipo, TFIGURA *f){
 	return f;
 }
 
+//Editar lado e área do quadrado
 TFIGURA* editar_quadrado(char* tipo, TFIGURA *f){
 	float lado;
 	strcpy(f->tipo, tipo);
@@ -139,6 +106,7 @@ TFIGURA* editar_quadrado(char* tipo, TFIGURA *f){
 	return f;
 }
 
+//Editar base, altura e área do triângulo
 TFIGURA* editar_triangulo(char* tipo, TFIGURA *f){
 	float base, altura;
 	strcpy(f->tipo, tipo);
@@ -150,6 +118,7 @@ TFIGURA* editar_triangulo(char* tipo, TFIGURA *f){
 	return f;
 }
 
+//Editar base menor, base maior, altura e área do trapézio
 TFIGURA* editar_trapezio(char* tipo, TFIGURA *f){
 	float base_menor, base_maior, altura;
 	strcpy(f->tipo, tipo);
@@ -162,6 +131,7 @@ TFIGURA* editar_trapezio(char* tipo, TFIGURA *f){
 	return f;
 }
 
+//Editar base, altura e área do retângulo
 TFIGURA* editar_retangulo(char* tipo, TFIGURA *f){
 	float base, altura;
 	strcpy(f->tipo, tipo);
@@ -170,5 +140,47 @@ TFIGURA* editar_retangulo(char* tipo, TFIGURA *f){
 	f->base_menor = base;
 	f->altura = altura;
 	f->area = area_retangulo(base, altura);
+	return f;
+}
+
+//Apenas alterações nas dimensões da figura
+TFIGURA* editar_dimensoes_figura(char* tipo, TFIGURA *f){
+	if(!strcmp(tipo, CIRCULO))  return editar_circulo(CIRCULO, f);
+	if(!strcmp(tipo, QUADRADO)) return editar_quadrado(QUADRADO, f);
+	if(!strcmp(tipo, TRIANGULO))return editar_triangulo(TRIANGULO, f);
+	if(!strcmp(tipo, RETANGULO))return editar_retangulo(RETANGULO, f);
+	if(!strcmp(tipo, TRAPEZIO)) return editar_trapezio(TRAPEZIO, f);
+
+	printf("Valor inválido.\n");
+
+	return f;
+}
+
+//Caso o usuário deseje trocar de figura
+TFIGURA* editar_figura(TFIGURA *f){
+	char tipo[3];
+	printf("Qual o tipo da figura?\n");
+	printf("CIR para círculo.\n");
+	printf("QUA para quadrado.\n");
+	printf("RET para retângulo.\n");
+	printf("TRA para trapézio.\n");
+	printf("TRI para triângulo.\n");
+	
+	scanf(" %s", tipo);
+	
+	return editar_dimensoes_figura(tipo, f);
+}
+
+TFIGURA* editar_no(TFIGURA* f){
+	int modificacao;
+	printf("O que deseja modificar? 0 - trocar a figura. 1 - alterar dimensões da figura\n");
+	scanf("%d", &modificacao);
+	if(modificacao == FIGURA){
+		return editar_figura(f);
+	} else if(modificacao == DIMENSAO){
+		return editar_dimensoes_figura(f->tipo, f);
+	} 
+	
+	printf("Valor inválido");
 	return f;
 }
