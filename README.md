@@ -94,7 +94,7 @@ Fim do programa ...
 ```
 
 OBS:
-* Apos cada operação você pode exibir a arvore no console (gentree print ou gt -p) para poder visualizar como a arvore está se comportando.
+* Apos cada operação você pode exibir a arvore no console (`gentree print`) para poder visualizar como a arvore está se comportando.
 * Todos comandos possuem abreviações, por exemplo, se desejar exibir a arvore no console também pode ser executado o comando `gentree -p`, `gt print` ou mesmo `gt -p`.
 
 ## Executanto testes
