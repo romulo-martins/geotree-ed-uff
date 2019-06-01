@@ -77,12 +77,12 @@ gentree print
 --- 10 (1)
 ```
 
-Para inserir um novo elemento, no caso 11 se torna filho de 3:
+Para inserir um novo elemento, por exemplo, uma figura de código 11 como filho de 3:
 ```
 gentree insert 11/3/CIR 3
 ```
 
-Para remover um elemento, por exemplo o nó de código 4:
+Para remover um elemento, por exemplo, o nó de código 4:
 ```
 gentree remove 4
 ```
