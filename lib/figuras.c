@@ -175,6 +175,7 @@ TFIGURA* editar_no(TFIGURA* f){
 	int modificacao;
 	printf("O que deseja modificar? 0 - trocar a figura. 1 - alterar dimensões da figura\n");
 	scanf("%d", &modificacao);
+	print_figura(f);
 	if(modificacao == FIGURA){
 		return editar_figura(f);
 	} else if(modificacao == DIMENSAO){

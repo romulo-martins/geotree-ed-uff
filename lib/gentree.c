@@ -64,6 +64,19 @@ GenTree* search_gt(GenTree* t, int cod) {
 	return search_gt(t->child, cod);
 }
 
+GenTree* edit_gt(GenTree* t, int cod){
+	GenTree* node = search_gt(t, cod);
+	if(!node){
+		 printf("Nó não encontrado.");
+		return NULL;
+	}
+	printf("Figura selecionada: \n");
+	printf("Código: %d ", cod);
+	print_figura(node->geofig);
+	node->geofig = editar_no(node->geofig);
+	return node;
+}
+
 
 void _parent_to_child(GenTree *parent, GenTree *child) {
 	if(!child) return;
@@ -129,6 +142,35 @@ GenTree* remove_gt(GenTree* t, int cod) {
 	return t;
 }
 
+TFIGURA* get_geofig(char* tipo){
+	float dim, base_menor, base_maior, altura; 
+	if(!strcmp(tipo, CIRCULO)) {
+		dim = atoi(strtok(NULL, " "));
+		return criar_circulo(CIRCULO, dim);	
+	} 
+	if(!strcmp(tipo, QUADRADO)) {
+		dim = atoi(strtok(NULL, " "));
+		return criar_quadrado(QUADRADO, dim);	
+	} 
+	if(!strcmp(tipo, TRIANGULO)) {
+		base_menor = atoi(strtok(NULL, " "));
+		altura = atoi(strtok(NULL, " "));
+		return criar_triangulo(TRIANGULO, base_menor, altura);
+	}
+	if(!strcmp(tipo, RETANGULO)) {
+		base_menor = atoi(strtok(NULL, " "));
+		altura = atoi(strtok(NULL, " "));
+		return criar_retangulo(RETANGULO, base_menor, altura);
+	}
+	if(!strcmp(tipo, TRAPEZIO)) {
+		base_menor = atoi(strtok(NULL, " "));
+		base_maior = atoi(strtok(NULL, " "));
+		altura = atoi(strtok(NULL, " "));
+		return criar_trapezio(TRAPEZIO, base_menor, base_maior, altura);
+	}
+
+	return NULL;
+}
 
 void print_2d(GenTree *t, int count, int wfigs) {
 	if(t) {
@@ -150,7 +192,7 @@ void print_gt(GenTree *t) {
 		printf("Error: arvore vazia!\n");
 		return;
 	}
-	print_2d(t, 0, 0);
+	print_2d(t, 0, 1);
 }
 
 
@@ -182,9 +224,9 @@ GenTree* load_gt(GenTree *t, char* path) {
 		while(fgets(str, str_size, file) != NULL) {
 			int cod = atoi(strtok(str, "/"));
 			int cod_par = atoi(strtok(NULL, "/"));
-			char* geo_fig = strtok(NULL, ""); // falta tratar a figura geométrica
-	    	// printf("%d %d %s\n", cod, cod_par, geo_fig);
-	    	t = insert_gt(t, cod, cod_par, NULL);
+			char* geo_fig = strtok(NULL, " "); // falta tratar a figura geométrica
+			TFIGURA* f = get_geofig(geo_fig);
+	    	t = insert_gt(t, cod, cod_par, f);
 		}
 		fclose(file);
 	} else {
