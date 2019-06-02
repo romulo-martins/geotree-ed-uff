@@ -18,6 +18,7 @@ void show_help_opts(void) {
 	printf("        [destroy ou -d]                             \n");
 	printf("        [convert ou -cv --avl --btree]              \n");
 	printf("        [load    ou -l (path)]                      \n");
+	printf("        [edit    ou -e (cod)]                       \n");
 	printf("Para sair do programa: exit ou quit                 \n");
 }
 
@@ -29,8 +30,10 @@ int is_gt_insert(char* cmd) {
 GenTree* get_gt_insert(GenTree* t) {
 	int cod, cod_par;
 	char geo_fig[50];
-	scanf("%d/%d/%[^\n]", &cod, &cod_par, geo_fig);
-	t = insert_gt(t, cod, cod_par, NULL); // TODO: Precisa tratar a figura geométrica.
+	scanf("%d/%d/%s", &cod, &cod_par, geo_fig);
+	TFIGURA *f = get_geofig(geo_fig);
+
+	t = insert_gt(t, cod, cod_par, f);
 	return t;
 }
 
@@ -56,6 +59,12 @@ GenTree* get_gt_search(GenTree *t) {
 	return t;
 }
 
+GenTree* get_gt_edit(GenTree *t){
+	int cod;
+	scanf("%d", &cod);
+	return edit_gt(t, cod);
+}
+
 int is_gt_print(char* cmd) {
 	return (strcmp(cmd, "print") == 0) || 
 			(strcmp(cmd, "-p") == 0);
@@ -79,6 +88,10 @@ GenTree* get_gt_destroy(GenTree* t) {
 int is_gt_convert(char* cmd) {
 	return (strcmp(cmd, "convert") == 0) ||
 			(strcmp(cmd, "-c") == 0);
+}
+
+int is_gt_edit(char* cmd){
+	return (strcmp(cmd, "edit") == 0) || (strcmp(cmd, "-e") == 0);
 }
 
 GenTree* get_gt_convert(GenTree *t) {
@@ -109,6 +122,7 @@ GenTree* gentree_cmds(GenTree* t) {
 	if(is_gt_destroy(cmd)) return get_gt_destroy(t);
 	if(is_gt_convert(cmd)) return get_gt_convert(t);
 	if(is_gt_load(cmd))    return get_gt_load(t);
+	if(is_gt_edit(cmd))	   return get_gt_edit(t);
 	printf("Error: operação não encontrada para GenTree!\n");
 	return t;
 }
