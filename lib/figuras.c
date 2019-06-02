@@ -11,7 +11,7 @@ Arquivo que contém as funções de criação para cada tipo de nó
 
 /* Cria as figuras de acordo com o tipo informado na entrada */
 // Cria um nó definindo a partir do tipo
-TFIGURA* criar_no(char* tipo, float dim, float base_menor, float base_maior, float altura){
+TFIGURA* criar_no(char* tipo, int dim, int base_menor, int base_maior, int altura){
 
 	if(!strcmp(tipo, CIRCULO))  return criar_circulo(CIRCULO, dim);
 	if(!strcmp(tipo, QUADRADO)) return criar_quadrado(QUADRADO, dim);
@@ -24,7 +24,7 @@ TFIGURA* criar_no(char* tipo, float dim, float base_menor, float base_maior, flo
 }
 
 // Círculo
-TFIGURA* criar_circulo(char* tipo, float raio){
+TFIGURA* criar_circulo(char* tipo, int raio){
 	TFIGURA *novo = (TFIGURA*) malloc(sizeof(TFIGURA));
 	strcpy(novo->tipo, tipo);
 	novo->dim = raio;
@@ -33,7 +33,7 @@ TFIGURA* criar_circulo(char* tipo, float raio){
 }
 
 // Quadrado
-TFIGURA* criar_quadrado(char* tipo, float lado){
+TFIGURA* criar_quadrado(char* tipo, int lado){
 	TFIGURA *novo = (TFIGURA*) malloc(sizeof(TFIGURA));
 	strcpy(novo->tipo, tipo);
 	novo->dim = lado;
@@ -43,7 +43,7 @@ TFIGURA* criar_quadrado(char* tipo, float lado){
 
 
 // Triângulo
-TFIGURA* criar_triangulo(char* tipo, float base, float altura){
+TFIGURA* criar_triangulo(char* tipo, int base, int altura){
 	TFIGURA *novo = (TFIGURA*) malloc(sizeof(TFIGURA));
 	strcpy(novo->tipo, tipo);
 	novo->base_menor = base;
@@ -54,7 +54,7 @@ TFIGURA* criar_triangulo(char* tipo, float base, float altura){
 
 
 // Retângulo
-TFIGURA* criar_retangulo(char* tipo, float base, float altura){
+TFIGURA* criar_retangulo(char* tipo, int base, int altura){
 	TFIGURA *novo = (TFIGURA*) malloc(sizeof(TFIGURA));
 	strcpy(novo->tipo, tipo);
 	novo->base_menor = base;
@@ -64,7 +64,7 @@ TFIGURA* criar_retangulo(char* tipo, float base, float altura){
 }
 
 // Trapézio
-TFIGURA* criar_trapezio(char* tipo, float base_menor, float base_maior, float altura){
+TFIGURA* criar_trapezio(char* tipo, int base_menor, int base_maior, int altura){
 	TFIGURA *novo = (TFIGURA*) malloc(sizeof(TFIGURA));
 	strcpy(novo->tipo, tipo);
 	novo->base_menor = base_menor;
@@ -75,21 +75,21 @@ TFIGURA* criar_trapezio(char* tipo, float base_menor, float base_maior, float al
 }
 
 void print_figura(TFIGURA* f) {
-	if(!strcmp(f->tipo, CIRCULO)) printf("[%s %.2f %.2f]\n",f->tipo, f->dim, f->area); 
-	if(!strcmp(f->tipo, QUADRADO)) printf("[%s %.2f %.2f]\n",f->tipo, f->dim, f->area); 
-	if(!strcmp(f->tipo, TRIANGULO)) printf("[%s %.2f %.2f %.2f]\n",f->tipo, f->base_menor, f->altura, f->area); 
-	if(!strcmp(f->tipo, RETANGULO)) printf("[%s %.2f %.2f %.2f]\n",f->tipo, f->base_menor, f->altura, f->area); 
-	if(!strcmp(f->tipo, TRAPEZIO)) printf("[%s %.2f %.2f %.2f %.2f]\n",f->tipo, f->base_menor, f->base_maior, f->altura, f->area);
+	if(!strcmp(f->tipo, CIRCULO)) printf("[%s %d %.2f]\n",f->tipo, f->dim, f->area); 
+	if(!strcmp(f->tipo, QUADRADO)) printf("[%s %d %.2f]\n",f->tipo, f->dim, f->area); 
+	if(!strcmp(f->tipo, TRIANGULO)) printf("[%s %d %d %.2f]\n",f->tipo, f->base_menor, f->altura, f->area); 
+	if(!strcmp(f->tipo, RETANGULO)) printf("[%s %d %d %.2f]\n",f->tipo, f->base_menor, f->altura, f->area); 
+	if(!strcmp(f->tipo, TRAPEZIO)) printf("[%s %d %d %d %.2f]\n",f->tipo, f->base_menor, f->base_maior, f->altura, f->area);
 }
 
 /* Funções de edição para cada figura*/
 
 //Editar raio e área do círculo
 TFIGURA* editar_circulo(char* tipo, TFIGURA *f){
-	float raio;
+	int raio;
 	strcpy(f->tipo, tipo);
 	printf("Digite o raio do círculo\n");
-	scanf("%f", &raio);
+	scanf("%d", &raio);
 	f->dim = raio;
 	f->area = area_circulo(raio);
 	return f;
@@ -97,10 +97,10 @@ TFIGURA* editar_circulo(char* tipo, TFIGURA *f){
 
 //Editar lado e área do quadrado
 TFIGURA* editar_quadrado(char* tipo, TFIGURA *f){
-	float lado;
+	int lado;
 	strcpy(f->tipo, tipo);
 	printf("Digite o lado do quadrado\n");
-	scanf("%f", &lado);
+	scanf("%d", &lado);
 	f->dim = lado;
 	f->area = area_quadrado(lado);
 	return f;
@@ -108,10 +108,10 @@ TFIGURA* editar_quadrado(char* tipo, TFIGURA *f){
 
 //Editar base, altura e área do triângulo
 TFIGURA* editar_triangulo(char* tipo, TFIGURA *f){
-	float base, altura;
+	int base, altura;
 	strcpy(f->tipo, tipo);
 	printf("Digite a base e altura do triângulo nessa ordem\n");
-	scanf("%f %f", &base, &altura);
+	scanf("%d %d", &base, &altura);
 	f->base_menor = base;
 	f->altura = altura;
 	f->area = area_triangulo(base, altura);
@@ -120,10 +120,10 @@ TFIGURA* editar_triangulo(char* tipo, TFIGURA *f){
 
 //Editar base menor, base maior, altura e área do trapézio
 TFIGURA* editar_trapezio(char* tipo, TFIGURA *f){
-	float base_menor, base_maior, altura;
+	int base_menor, base_maior, altura;
 	strcpy(f->tipo, tipo);
 	printf("Digite a base menor, a base maior e a altura do trapézio nessa ordem\n");
-	scanf("%f %f %f", &base_menor, &base_maior, &altura);
+	scanf("%d %d %d", &base_menor, &base_maior, &altura);
 	f->base_menor = base_menor;
 	f->base_maior = base_maior;
 	f->altura = altura;
@@ -133,10 +133,10 @@ TFIGURA* editar_trapezio(char* tipo, TFIGURA *f){
 
 //Editar base, altura e área do retângulo
 TFIGURA* editar_retangulo(char* tipo, TFIGURA *f){
-	float base, altura;
+	int base, altura;
 	strcpy(f->tipo, tipo);
 	printf("Digite a base e a altura do retângulo nessa ordem\n");
-	scanf("%f %f", &base, &altura);
+	scanf("%d %d", &base, &altura);
 	f->base_menor = base;
 	f->altura = altura;
 	f->area = area_retangulo(base, altura);
@@ -160,12 +160,13 @@ TFIGURA* editar_dimensoes_figura(char* tipo, TFIGURA *f){
 TFIGURA* editar_figura(TFIGURA *f){
 	char tipo[3];
 	printf("Qual o tipo da figura?\n");
-	printf("CIR para círculo.\n");
-	printf("QUA para quadrado.\n");
-	printf("RET para retângulo.\n");
-	printf("TRA para trapézio.\n");
-	printf("TRI para triângulo.\n");
-	
+	printf("        [CIR para círculo.]        \n");
+	printf("        [QUA para quadrado.]       \n");
+	printf("        [RET para retângulo.]      \n");
+	printf("        [TRA para trapézio.]       \n");
+	printf("        [TRI para triângulo.]      \n");
+	printf("\n");
+
 	scanf(" %s", tipo);
 	
 	return editar_dimensoes_figura(tipo, f);

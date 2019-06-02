@@ -24,5 +24,6 @@ void print_gt_wfigs(GenTree *t);
 void free_gt(GenTree* t);
 GenTree* load_gt(GenTree *t, char* path);
 GenTree* edit_gt(GenTree* t, int cod);
+TFIGURA* get_geofig(char* tipo);
 
 #endif

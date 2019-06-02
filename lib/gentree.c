@@ -142,7 +142,7 @@ GenTree* remove_gt(GenTree* t, int cod) {
 	return t;
 }
 
-TFIGURA* get_geofig(char* tipo){
+TFIGURA* get_geofig_file(char* tipo){ //TODO: verificar leitura para float
 	float dim, base_menor, base_maior, altura; 
 	if(!strcmp(tipo, CIRCULO)) {
 		dim = atoi(strtok(NULL, " "));
@@ -166,6 +166,32 @@ TFIGURA* get_geofig(char* tipo){
 		base_menor = atoi(strtok(NULL, " "));
 		base_maior = atoi(strtok(NULL, " "));
 		altura = atoi(strtok(NULL, " "));
+		return criar_trapezio(TRAPEZIO, base_menor, base_maior, altura);
+	}
+
+	return NULL;
+}
+
+TFIGURA* get_geofig(char* tipo){
+	int dim, base_menor, base_maior, altura; 
+	if(!strcmp(tipo, CIRCULO)) {
+		scanf("%d", &dim);
+		return criar_circulo(CIRCULO, dim);	
+	} 
+	if(!strcmp(tipo, QUADRADO)) {
+		scanf("%d", &dim);
+		return criar_quadrado(QUADRADO, dim);	
+	} 
+	if(!strcmp(tipo, TRIANGULO)) {
+		scanf("%d %d", &base_menor, &altura);
+		return criar_triangulo(TRIANGULO, base_menor, altura);
+	}
+	if(!strcmp(tipo, RETANGULO)) {
+		scanf("%d %d", &base_menor, &altura);
+		return criar_retangulo(RETANGULO, base_menor, altura);
+	}
+	if(!strcmp(tipo, TRAPEZIO)) {
+		scanf("%d %d %d", &base_menor, &base_maior, &altura);
 		return criar_trapezio(TRAPEZIO, base_menor, base_maior, altura);
 	}
 
@@ -224,8 +250,8 @@ GenTree* load_gt(GenTree *t, char* path) {
 		while(fgets(str, str_size, file) != NULL) {
 			int cod = atoi(strtok(str, "/"));
 			int cod_par = atoi(strtok(NULL, "/"));
-			char* geo_fig = strtok(NULL, " "); // falta tratar a figura geométrica
-			TFIGURA* f = get_geofig(geo_fig);
+			char* geo_fig = strtok(NULL, " ");
+			TFIGURA* f = get_geofig_file(geo_fig);
 	    	t = insert_gt(t, cod, cod_par, f);
 		}
 		fclose(file);

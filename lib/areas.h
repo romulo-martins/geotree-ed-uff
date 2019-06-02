@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include "math.h"
 
-float area_circulo(float raio);
-float area_quadrado(float lado);
-float area_triangulo(float base, float altura);
-float area_trapezio(float base_menor, float base_maior, float altura);
-float area_retangulo(float base, float altura);
+float area_circulo(int raio);
+float area_quadrado(int lado);
+float area_triangulo(int base, int altura);
+float area_trapezio(int base_menor, int base_maior, int altura);
+float area_retangulo(int base, int altura);
 
 #endif

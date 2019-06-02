@@ -30,8 +30,10 @@ int is_gt_insert(char* cmd) {
 GenTree* get_gt_insert(GenTree* t) {
 	int cod, cod_par;
 	char geo_fig[50];
-	scanf("%d/%d/%[^\n]", &cod, &cod_par, geo_fig);
-	t = insert_gt(t, cod, cod_par, NULL); // TODO: Precisa tratar a figura geométrica.
+	scanf("%d/%d/%s", &cod, &cod_par, geo_fig);
+	TFIGURA *f = get_geofig(geo_fig);
+
+	t = insert_gt(t, cod, cod_par, f);
 	return t;
 }
 
