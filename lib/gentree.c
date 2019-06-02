@@ -1,17 +1,17 @@
-#include "gentree.h"
-
 /*
  +=====================================+
  | Arvore Genérica (Generic Tree - GT) |
  +=====================================+
 */
 
+#include "gentree.h"
 
+// Inicializa a arvore.
 GenTree* new_gt(void) {
 	return NULL;
 }
 
-
+// Cria um novo nó da arvore genérica.
 GenTree* _create_node_gt(int cod, int cod_parent, void* geofig) {
 	GenTree *node = (GenTree*) malloc(sizeof(GenTree));
 	node->cod = cod;
@@ -22,7 +22,7 @@ GenTree* _create_node_gt(int cod, int cod_parent, void* geofig) {
 	return node;
 }
 
-
+// Insere uma nova figura geométrica na árvore, a partir de seu código e o código do pai.
 GenTree* insert_gt(GenTree* t, int cod, int cod_parent, void* geofig) {
 	if(search_gt(t, cod)) {
 		printf("Error: um elemento de codigo %d já existe, informe um outro código.\n", cod);
@@ -55,7 +55,7 @@ GenTree* insert_gt(GenTree* t, int cod, int cod_parent, void* geofig) {
 	return t;
 }
 
-
+// Busca um determinado nó a partir de seu código único atraves de uma busca em profundidade.
 GenTree* search_gt(GenTree* t, int cod) {
 	if(!t) return NULL;
 	if(t->cod == cod) return t;
@@ -63,6 +63,7 @@ GenTree* search_gt(GenTree* t, int cod) {
 	if(brother) return brother;
 	return search_gt(t->child, cod);
 }
+
 
 GenTree* edit_gt(GenTree* t, int cod){
 	GenTree* node = search_gt(t, cod);
@@ -74,10 +75,10 @@ GenTree* edit_gt(GenTree* t, int cod){
 	printf("Código: %d ", cod);
 	print_figura(node->geofig);
 	node->geofig = editar_no(node->geofig);
-	return node;
+	return t;
 }
 
-
+// Associa um filho a um pai.
 void _parent_to_child(GenTree *parent, GenTree *child) {
 	if(!child) return;
 
@@ -96,7 +97,7 @@ void _parent_to_child(GenTree *parent, GenTree *child) {
 	}
 }
 
-
+// Remove um elemento da raiz, escolhe o primeiro filho e o torna raiz.
 GenTree* _remove_root(GenTree *t) {
 	GenTree *temp = t;
 	if(t->child) {
@@ -112,7 +113,7 @@ GenTree* _remove_root(GenTree *t) {
 	return NULL;
 }
 
-
+// Remove um elemento da arvore, a partir de seu código único.
 GenTree* remove_gt(GenTree* t, int cod) {
 	GenTree *node = search_gt(t, cod);
 	if(!node) {
@@ -198,27 +199,50 @@ TFIGURA* get_geofig(char* tipo){
 	return NULL;
 }
 
-void print_2d(GenTree *t, int count, int wfigs) {
+/*
+Exibe no console a arvore no formato de diretórios, por exemplo, para seguinte árvore (apenas código):
+	  1
+	 /
+	2 - 3 - 4 - 10
+   /       /
+  6	      5 - 9
+         /  
+        7 - 8
+
+Obtemos a seguinte saida (apenas código):
+1
+--2
+----6
+--3
+--4
+----5
+------7
+------8
+----9
+--10
+*/
+void print_2d(GenTree *t, int count, int wkeys) {
 	if(t) {
 		for (int i = 0; i < count; i++) printf("---");
 		printf(" %d (%d) ", t->cod, t->cod_parent);
-		if(wfigs) print_figura(t->geofig); else printf("\n");
-		print_2d(t->child, count+1, wfigs);
-		print_2d(t->brother, count, wfigs);
+		if(!wkeys) print_figura(t->geofig); else printf("\n");
+		print_2d(t->child, count+1, wkeys);
+		print_2d(t->brother, count, wkeys);
 	}
 }
 
-void print_gt_wfigs(GenTree *t) {
+// Exibe apenas as chaves, os códigos únicos, dos nós da arvore.
+void print_gt_keys(GenTree *t) {
 	print_2d(t, 0, 1);
 }
 
-
+// Exibe os elementos da árvore no terminal.
 void print_gt(GenTree *t) {
 	if (!t) {
 		printf("Error: arvore vazia!\n");
 		return;
 	}
-	print_2d(t, 0, 1);
+	print_2d(t, 0, 0);
 }
 
 
@@ -243,7 +267,7 @@ Exemplo:
 	etc ...
 */
 GenTree* load_gt(GenTree *t, char* path) {
-	int str_size = 51; // cada linha possui entre 10 a 13 caracteres, mas joguei 50 só pra garantir 
+	int str_size = 51; // cada linha possui entre 10 a 13 caracteres, joguei 50 só pra garantir 
 	char str[str_size]; 
 	
 	FILE *file = fopen(path, "r");
