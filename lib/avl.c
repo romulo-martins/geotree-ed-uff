@@ -5,8 +5,6 @@ Arquivo que contém as funções de necessárias para implementar uma árvore AV
 #include "avl.h"
 #include "figuras.h"
 
-#define COUNT 10
-
 //Libera espaço de memória da árvore
 void libera_arvore_avl(TAVL *a){
 	if(a != NULL){
