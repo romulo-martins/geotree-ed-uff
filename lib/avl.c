@@ -15,10 +15,10 @@ void libera_arvore_avl(TAVL *a){
 }
 
 //Busca um elemento na árvore de acordo com um código informado
-TAVL* busca_avl(int codigo, TAVL *a){
+TAVL* busca_avl(TAVL *a, int codigo){
 	if(a == NULL) return NULL;
-	if(codigo < a->codigo) return busca_avl(codigo, a->esq);
-	if(codigo > a->codigo) return busca_avl(codigo, a->dir);
+	if(codigo < a->codigo) return busca_avl(a->esq, codigo);
+	if(codigo > a->codigo) return busca_avl(a->dir,codigo);
 	return a;
 }
 
