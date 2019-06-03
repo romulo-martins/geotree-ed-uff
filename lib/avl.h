@@ -17,7 +17,7 @@ typedef struct tavl {
 TAVL *insere_no_avl(TAVL *a, int codigo, void *geofig);
 TAVL* retira_no_avl(TAVL *a, int x);
 void imprime_arvore_avl(TAVL *a);
-void libera(TAVL *a);
+void libera_arvore_avl(TAVL *a);
 
 
 #endif

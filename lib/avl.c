@@ -8,10 +8,10 @@ Arquivo que contém as funções de necessárias para implementar uma árvore AV
 #define COUNT 10
 
 //Libera espaço de memória da árvore
-void libera(TAVL *a){
+void libera_arvore_avl(TAVL *a){
 	if(a != NULL){
-		libera(a->esq);
-		libera(a->dir);
+		libera_arvore_avl(a->esq);
+		libera_arvore_avl(a->dir);
 		free(a);
 	}
 }
@@ -213,4 +213,4 @@ void imprime_nos_avl(TAVL *a, int andar) {
 //Imprime uma árvore AVL
 void imprime_arvore_avl(TAVL *a) { 
    imprime_nos_avl(a, 1); 
-} 
+}
