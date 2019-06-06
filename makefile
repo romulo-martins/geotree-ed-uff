@@ -10,3 +10,10 @@ gentree_load_test: tests/gentree_load_test.c lib/gentree.h lib/figuras.h lib/are
 
 main: main.c lib/gentree.h lib/figuras.h lib/areas.h
 	gcc -o main.out main.c lib/gentree.c lib/figuras.c lib/areas.c -lm
+
+gentree_wfigs_test: tests/gentree_wfigs_test.c lib/gentree.c lib/gentree.h lib/figuras.h
+	gcc -o gentree_wfigs_test.out tests/gentree_wfigs_test.c lib/gentree.c lib/figuras.c -lm
+
+avl_test: tests/avl_test.c lib/avl.c lib/avl.h
+	gcc -o avl_test.out tests/avl_test.c lib/avl.c lib/figuras.c -lm
+>>>>>>> ea6bc0c6f27f6af503aa3366559fa3ffc0be4860
