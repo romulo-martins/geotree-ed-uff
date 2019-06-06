@@ -16,4 +16,3 @@ gentree_wfigs_test: tests/gentree_wfigs_test.c lib/gentree.c lib/gentree.h lib/f
 
 avl_test: tests/avl_test.c lib/avl.c lib/avl.h
 	gcc -o avl_test.out tests/avl_test.c lib/avl.c lib/figuras.c -lm
->>>>>>> ea6bc0c6f27f6af503aa3366559fa3ffc0be4860
