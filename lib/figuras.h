@@ -4,12 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "math.h"
+#include "areas.h"
 
 // Definindo estrutura genérica para as figuras geométricas
 typedef struct figura {
 	char tipo[3];
-	float dim, base_menor, base_maior, altura;
+	int dim, base_menor, base_maior, altura;
 	float area;
 } TFIGURA;
 
@@ -20,11 +20,12 @@ typedef struct figura {
 #define TRAPEZIO "TRA"
 #define TRIANGULO "TRI"
 
-TFIGURA* criar_circulo(char* tipo, float raio);
-TFIGURA* criar_quadrado(char* tipo, float lado);
-TFIGURA* criar_triangulo(char* tipo, float base, float altura);
-TFIGURA* criar_retangulo(char* tipo, float base, float altura);
-TFIGURA* criar_trapezio(char* tipo, float base_menor, float base_maior, float altura);
+TFIGURA* criar_circulo(char* tipo, int raio);
+TFIGURA* criar_quadrado(char* tipo, int lado);
+TFIGURA* criar_triangulo(char* tipo, int base, int altura);
+TFIGURA* criar_retangulo(char* tipo, int base, int altura);
+TFIGURA* criar_trapezio(char* tipo, int base_menor, int base_maior, int altura);
 void print_figura(TFIGURA* f);
+TFIGURA* editar_no(TFIGURA* f);
 
 #endif

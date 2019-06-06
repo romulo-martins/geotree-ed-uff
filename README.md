@@ -42,9 +42,64 @@ Exemplo de entrada, dado por um arquivo:
 ```
 PORÉM, SEU CÓDIGO DEVE FUNCIONAR COM QUALQUER ENTRADA QUE SEGUE O PADRÃO SUPRACITADO;
 
+## Executanto o programa
+
+Para compilar: 
+```
+make main
+```
+
+Para rodar:
+```
+./main
+```
+
+### Exemplo de comandos
+
+Para carregar uma arvore a partir de um arquivo txt:
+```
+gentree load in/exemplo.txt
+```
+
+Para exibir a arvore no terminal:
+```
+gentree print
+
+ 1 (0) 
+--- 2 (1) 
+------ 6 (2) 
+--- 3 (1) 
+--- 4 (1) 
+------ 5 (4) 
+--------- 7 (5) 
+--------- 8 (5) 
+------ 9 (4) 
+--- 10 (1)
+```
+
+Para inserir um novo elemento, por exemplo, uma figura de código 11 como filho de 3:
+```
+gentree insert 11/3/CIR 3
+```
+
+Para remover um elemento, por exemplo, o nó de código 4:
+```
+gentree remove 4
+```
+
+Para sair do programa:
+```
+exit
+Fim do programa ...
+```
+
+OBS:
+* Apos cada operação você pode exibir a arvore no console (`gentree print`) para poder visualizar como a arvore está se comportando.
+* Todos comandos possuem abreviações, por exemplo, se desejar exibir a arvore no console também pode ser executado o comando `gentree -p`, `gt print` ou mesmo `gt -p`.
+
 ## Executanto testes
 
-Para compilar, ente na pasta de *tests* e rode: 
+Para compilar: 
 ```
 make gentree_test
 ```

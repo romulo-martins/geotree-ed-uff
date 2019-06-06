@@ -8,7 +8,7 @@ int main(int argc, char const *argv[]) {
 	GenTree *t = gentree_factory();
 	print_gt(t);
 	printf("\n");
-	print_gt_wfigs(t);
+	print_gt_keys(t);
 	free_gt(t);
 
 	return 0;

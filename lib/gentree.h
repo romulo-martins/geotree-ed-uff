@@ -20,7 +20,10 @@ GenTree* insert_gt(GenTree* t, int cod_geo, int cod_parent, void* geofig);
 GenTree* search_gt(GenTree* t, int cod);
 GenTree* remove_gt(GenTree* t, int cod);
 void print_gt(GenTree *t);
-void print_gt_wfigs(GenTree *t);
+void print_gt_keys(GenTree *t);
 void free_gt(GenTree* t);
+GenTree* load_gt(GenTree *t, char* path);
+GenTree* edit_gt(GenTree* t, int cod);
+TFIGURA* get_geofig(char* tipo);
 
 #endif
