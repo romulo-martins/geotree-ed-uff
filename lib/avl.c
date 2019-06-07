@@ -11,6 +11,7 @@ void libera_arvore_avl(TAVL *a){
 	if(a != NULL){
 		libera_arvore_avl(a->esq);
 		libera_arvore_avl(a->dir);
+		free(a->geofig);
 		free(a);
 	}
 }
