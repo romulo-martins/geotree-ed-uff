@@ -1,4 +1,5 @@
 #include "lib/gentree.h"
+#include "lib/avl.h"
 
 void show_welcome(void) {
 	printf("------------------------------------------\n");
@@ -87,15 +88,33 @@ GenTree* get_gt_destroy(GenTree* t) {
 
 int is_gt_convert(char* cmd) {
 	return (strcmp(cmd, "convert") == 0) ||
-			(strcmp(cmd, "-c") == 0);
+			(strcmp(cmd, "-cv") == 0);
 }
 
 int is_gt_edit(char* cmd){
 	return (strcmp(cmd, "edit") == 0) || (strcmp(cmd, "-e") == 0);
 }
 
-GenTree* get_gt_convert(GenTree *t) {
-	printf("TODO: Conversão\n"); // TODO: fazer a conversão
+int is_gt2avl(char* cmd){
+	return strcmp(cmd, "--avl") == 0;
+}
+
+int is_gt2btree(char* cmd){
+	return strcmp(cmd, "--btree") == 0;
+}
+
+void* get_gt_convert(GenTree *t) {
+	char tree_type[3];
+	scanf("%s", tree_type);
+	printf("TODO: Conversão árvore B\n"); // TODO: fazer a conversão árvore B
+	//if(is_gt2avl) return get_avl_tree(t);
+	if(is_gt2avl){
+		m(t);
+	} else {
+		printf("Error: tipo de conversão não encontrado para GenTree!\n");
+	}
+	//if(is_gt2btree) return
+
 	return t;
 }
 

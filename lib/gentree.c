@@ -225,15 +225,9 @@ void print_2d(GenTree *t, int count, int wkeys) {
 	if(t) {
 		for (int i = 0; i < count; i++) printf("---");
 		printf(" %d (%d) ", t->cod, t->cod_parent);
-<<<<<<< HEAD
-		if(wfigs) print_figura(t->geofig); else printf("\n");
-		print_2d(t->child, count+1, wfigs);
-		print_2d(t->brother, count, wfigs);
-=======
 		if(!wkeys) print_figura(t->geofig); else printf("\n");
 		print_2d(t->child, count+1, wkeys);
 		print_2d(t->brother, count, wkeys);
->>>>>>> a4754ef18715b574f9e00f8955a287b621f2ad4f
 	}
 }
 

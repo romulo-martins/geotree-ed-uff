@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "gentree.h"
 
 // Nó da arvore AVL, possui como informação figuras geométricas
 typedef struct tavl {
@@ -19,5 +20,7 @@ void imprime_arvore_avl(TAVL *a);
 void libera_arvore_avl(TAVL *a);
 TAVL* inicializa_avl(void);
 TAVL* busca_avl(TAVL *a, int codigo);
+TAVL* get_avl_tree(GenTree *p);
+void m(GenTree *t);
 
 #endif
