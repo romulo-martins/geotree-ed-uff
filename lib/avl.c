@@ -4,11 +4,10 @@ Arquivo que contém as funções de necessárias para implementar uma árvore AV
 
 #include "avl.h"
 #include "figuras.h"
-#include "pilha.h"
 
 //Libera espaço de memória da árvore
 void libera_arvore_avl(TAVL *a){
-	if(a != NULL){
+	if(a){
 		libera_arvore_avl(a->esq);
 		libera_arvore_avl(a->dir);
 		free(a->geofig);
@@ -213,32 +212,15 @@ void imprime_nos_avl(TAVL *a, int andar, int imprimir_figura) {
   
 //Imprime uma árvore AVL
 void imprime_arvore_avl(TAVL *a) { 
-   imprime_nos_avl(a, 1, 0); 
+   imprime_nos_avl(a, 1, 1); 
 }
 
 // Converte uma árvore genérica em uma árvore AVL
-TAVL* get_avl_tree(GenTree *t){
-	if (!t) {
-		printf("Error: arvore vazia!\n");
-		return NULL;
+TAVL* convert_2_avl(GenTree *gentree, TAVL *avl){
+	if(gentree){
+		avl = insere_no_avl(avl, gentree->cod, gentree->geofig);
+		avl = convert_2_avl(gentree->child, avl);
+		avl = convert_2_avl(gentree->brother, avl);
 	}
-	TAVL *resp = inicializa_avl();
-
-	TP *p = criaPilha();
-	push(p, t);
-	while(!pilhaVazia(p)){
-		GenTree *q = pop(p);
-		resp = insere_no_avl(resp, q->cod, q->geofig);
-		if(q->child) push(p, q->child);
-		if(q->brother) push(p, q->brother);
-	}
-
-	liberaPilha(p);
-
-	return resp;
-}
-
-void m(GenTree *t){
-	TAVL *resp = get_avl_tree(t);
-	imprime_arvore_avl(resp);
+	return avl;
 }

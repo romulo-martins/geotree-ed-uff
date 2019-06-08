@@ -4,6 +4,7 @@ Realiza testes das operações básicas da árvore, sem levar em consideração 
 
 #include "../lib/avl.h"
 
+// Interface dos testes
 TAVL* avl_factory(void);
 void insere_test(void);
 void busca_test(void);
@@ -12,6 +13,8 @@ void busca_test(void);
 int main (int argc, char const *argv[]){
 	insere_test();
 	busca_test();
+
+	return 0;
 
 }
 
@@ -54,12 +57,12 @@ void busca_test(void){
 	printf("\n Teste de buscas ...\n");
 
 	TAVL *a = avl_factory();
-	if(busca_avl(a, 10) != NULL)  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 7)  != NULL)  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 3)  != NULL)  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 20) != NULL)  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 8)  != NULL)  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 15) != NULL)  printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 10))  printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 7))   printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 3))   printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 20))  printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 8))   printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 15))  printf("OK\n"); else printf("ERROR\n");
 
 	libera_arvore_avl(a);
 }
@@ -74,11 +77,20 @@ void insere_test(void){
 	a = insere_no_avl(a, 15, NULL);
 	a = insere_no_avl(a, 16, NULL);
 
-	if(busca_avl(a, 12) != NULL)  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 13) != NULL)  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 14) != NULL)  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 15) != NULL)  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 16) != NULL)  printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 12))  printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 13))  printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 14))  printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 15))  printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 16))  printf("OK\n"); else printf("ERROR\n");
 
-	libera_arvore_avl(a);
+	//libera_arvore_avl(a);
+}
+
+void remove_test(void){
+	printf("Testes de remoção...\n");
+
+	TAVL *a = avl_factory();
+	a = retira_no_avl(a, 10); //Remove a raiz
+	if(!busca_avl(a, 10)) printf("OK\n"); else printf("ERROR\n");
+	if(busca_avl(a, 7)) printf("OK\n"); else printf("ERROR\n");
 }

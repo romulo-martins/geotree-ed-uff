@@ -20,7 +20,6 @@ void imprime_arvore_avl(TAVL *a);
 void libera_arvore_avl(TAVL *a);
 TAVL* inicializa_avl(void);
 TAVL* busca_avl(TAVL *a, int codigo);
-TAVL* get_avl_tree(GenTree *p);
-void m(GenTree *t);
+TAVL* convert_2_avl(GenTree *gentree, TAVL *avl);
 
 #endif
