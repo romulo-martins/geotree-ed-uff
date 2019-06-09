@@ -11,7 +11,7 @@ GenTree* gentree_factory(void) {
 	t = insert_gt(t, 7, 5, NULL);
 	t = insert_gt(t, 8, 5, NULL);
 	t = insert_gt(t, 9, 4, NULL);
-	t = insert_gt(t, 10, 1, NULL);
+	t = insert_gt(t, 10, 1, criar_triangulo("TRI", 3, 2));
 	return t;	
 }
 
@@ -31,9 +31,11 @@ int main(int argc, char const *argv[]){
     b_tree = insert(b_tree, 21, 2); */
 
     print(b_tree, 0);
+    print_figure(10, b_tree);
+    print_figure(1, b_tree);
 
-    /* if(find(b_tree, 10)) printf("OK\n"); else printf("ERRO\n");
-    if(find(b_tree, 15)) printf("OK\n"); else printf("ERRO\n");
+    if(find(b_tree, 10)) printf("OK\n"); else printf("ERRO\n");
+    /*if(find(b_tree, 15)) printf("OK\n"); else printf("ERRO\n");
     if(find(b_tree, 20)) printf("OK\n"); else printf("ERRO\n");
     if(find(b_tree, 1)) printf("OK\n"); else printf("ERRO\n");
     if(find(b_tree, 5)) printf("OK\n"); else printf("ERRO\n");

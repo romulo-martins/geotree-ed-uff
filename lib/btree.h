@@ -20,3 +20,4 @@ BTree *split(BTree *x, BTree *y, int i, int t);
 BTree *insert_nonfull(BTree *tree, GenTree *node, int t);
 BTree *new_bt(void);
 BTree *convert_2_b_tree(GenTree *gentree, BTree *btree, int t);
+void print_figure(int code, BTree *btree);

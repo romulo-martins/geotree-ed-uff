@@ -1,4 +1,5 @@
 #include "btree.h"
+#include <stdio.h>
 
 /*
  +=====================================+
@@ -123,5 +124,13 @@ BTree *convert_2_b_tree(GenTree *gentree, BTree *btree, int t){
         btree = convert_2_b_tree(gentree->brother, btree, t);
     }
     return btree;
+}
+
+void print_figure(int code, BTree *btree){
+    BTree *bt = find(btree, code);
+    int i = 0;
+    while(bt->keys[i]->cod != code) i++;
+    if(bt->keys[i]->geofig) print_figura(bt->keys[i]->geofig);
+    else printf("Este nó não possui figura associada.\n");
 }
 
