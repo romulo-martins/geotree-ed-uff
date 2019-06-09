@@ -1,118 +1,120 @@
 /*
-Arquivo que contém as funções de necessárias para implementar uma árvore AVL
+ +=====================================+
+ | Arvore AVL (AVL Tree - AT) |
+ +=====================================+
 */
 
 #include "avl.h"
 #include "figuras.h"
 
 //Libera espaço de memória da árvore
-void libera_arvore_avl(TAVL *a){
+void free_avl(TAVL *a){
 	if(a){
-		libera_arvore_avl(a->esq);
-		libera_arvore_avl(a->dir);
+		free_avl(a->esq);
+		free_avl(a->dir);
 		free(a->geofig);
 		free(a);
 	}
 }
 
 //Busca um elemento na árvore de acordo com um código informado
-TAVL* busca_avl(TAVL *a, int codigo){
+TAVL* find_avl(TAVL *a, int codigo){
 	if(a == NULL) return NULL;
-	if(codigo < a->codigo) return busca_avl(a->esq, codigo);
-	if(codigo > a->codigo) return busca_avl(a->dir,codigo);
+	if(codigo < a->cod) return find_avl(a->esq, codigo);
+	if(codigo > a->cod) return find_avl(a->dir,codigo);
 	return a;
 }
 
 //Função que retorna a maior altura
-int maior(int altura_esq, int altura_dir){
+int biggest(int altura_esq, int altura_dir){
 	return (altura_esq > altura_dir) ? altura_esq : altura_dir;
 }
 
 // Calcula a altura da árvore AVL
-int altura_avl(TAVL *a){
+int height_avl(TAVL *a){
 	if(a == NULL) return -1;
 	return a->alt;
 }
 
 
 //Performa rotação à direita.
-TAVL* rotacao_direita(TAVL *t){
+TAVL* right_rot(TAVL *t){
 	TAVL *p = NULL;
 	p = t->esq;
 	t->esq = p->dir;
 	p->dir = t;
-	t->alt = maior(altura_avl(t->esq), altura_avl(t->dir)) + 1;
-	p->alt = maior(altura_avl(p->esq), t->alt) + 1;
+	t->alt = biggest(height_avl(t->esq), height_avl(t->dir)) + 1;
+	p->alt = biggest(height_avl(p->esq), t->alt) + 1;
 	return p;
 }
 
 //Performa rotação à esquerda.
-TAVL* rotacao_esquerda(TAVL *p){
+TAVL* left_rot(TAVL *p){
 	TAVL *t;
 	t = p->dir;
 	p->dir = t->esq;
 	t->esq = p;
-	p->alt = maior(altura_avl(p->esq), altura_avl(p->dir)) + 1;
-	t->alt = maior(altura_avl(t->dir), p->alt) + 1;
+	p->alt = biggest(height_avl(p->esq), height_avl(p->dir)) + 1;
+	t->alt = biggest(height_avl(t->dir), p->alt) + 1;
 	return t;
 }
 
 //Performa rotação dupla esquerda-direita (RED)
-TAVL* rotacao_esquerda_direita(TAVL* q){
-	q->esq = rotacao_esquerda(q->esq);
-	return rotacao_direita(q);
+TAVL* left_right_rot(TAVL* q){
+	q->esq = left_rot(q->esq);
+	return right_rot(q);
 }
 
-TAVL* rotacao_direita_esquerda(TAVL * p){
-	p->dir = rotacao_direita(p->dir);
-	return rotacao_esquerda(p);
+TAVL* right_left_rot(TAVL * p){
+	p->dir = right_rot(p->dir);
+	return left_rot(p);
 }
 
 //Cria um nó para a árvore AVL
-TAVL* cria_no_avl(int codigo, void* geofig){
-	TAVL *novo = (TAVL*) malloc(sizeof(TAVL));
-	novo->codigo = codigo;
-	novo->geofig = geofig;
-	novo->esq = NULL;
-	novo->dir = NULL;
-	return novo;
+TAVL* create_node_avl(int codigo, void* geofig){
+	TAVL *node = (TAVL*) malloc(sizeof(TAVL));
+	node->cod = codigo;
+	node->geofig = geofig;
+	node->esq = NULL;
+	node->dir = NULL;
+	return node;
 }
 
-TAVL* inicializa_avl(void){
+TAVL* create_avl(void){
 	return NULL;
 }
 
 //Função recursiva para adicionar um nó em uma árvore AVL
-TAVL* insere_no_avl(TAVL *a, int codigo, void *geofig){
+TAVL* insert_avl(TAVL *a, int codigo, void *geofig){
 
 	//Verifica se a árvore está vazia
-	if(!a) return cria_no_avl(codigo, geofig);
+	if(!a) return create_node_avl(codigo, geofig);
 
-	if(codigo < a->codigo){
-		a->esq = insere_no_avl(a->esq, codigo, a->geofig);
-		if(altura_avl(a->esq) - altura_avl(a->dir) == 2){
-			if(codigo < a->esq->codigo){
-				a = rotacao_direita(a);
+	if(codigo < a->cod){
+		a->esq = insert_avl(a->esq, codigo, a->geofig);
+		if(height_avl(a->esq) - height_avl(a->dir) == 2){
+			if(codigo < a->esq->cod){
+				a = right_rot(a);
 			} else {
-				a = rotacao_esquerda_direita(a);
+				a = left_right_rot(a);
 			}
 		}	
-	} else if(codigo > a->codigo){
-		a->dir = insere_no_avl(a->dir, codigo, a->geofig);
-		if(altura_avl(a->dir) - altura_avl(a->esq) == 2){
-			if(codigo > a->dir->codigo){
-				a = rotacao_esquerda(a);
+	} else if(codigo > a->cod){
+		a->dir = insert_avl(a->dir, codigo, a->geofig);
+		if(height_avl(a->dir) - height_avl(a->esq) == 2){
+			if(codigo > a->dir->cod){
+				a = left_rot(a);
 			} else {
-				a = rotacao_direita_esquerda(a);
+				a = right_left_rot(a);
 			}
 		}
 	}
-	a->alt = maior(altura_avl(a->esq), altura_avl(a->dir)) + 1;
+	a->alt = biggest(height_avl(a->esq), height_avl(a->dir)) + 1;
 	return a;
 }	
 
 //Calcula a altura da árvore durante a operação de retirada do nó
-int altura_avl_retirada(TAVL *a){
+int remove_height_avl(TAVL *a){
 	int altura_esq, altura_dir;
 	if(a == NULL) return 0;
 	if(a->esq == NULL){
@@ -147,41 +149,41 @@ int FB(TAVL *a){
 }
 
 //Retira um nó da árvore de acordo com o código informado
-TAVL* retira_no_avl(TAVL *a, int x){       
+TAVL* remove_avl(TAVL *a, int x){       
     TAVL *p;
     if(a==NULL){
         return NULL;
     } else{
-        if(x > a->codigo){
-            a->dir=retira_no_avl(a->dir, x);
+        if(x > a->cod){
+            a->dir=remove_avl(a->dir, x);
             if(FB(a) == 2){
             	if(FB(a->esq) >= 0){
-                    a = rotacao_direita(a);
+                    a = right_rot(a);
             	}else {
-                    a = rotacao_direita_esquerda(a);
+                    a = right_left_rot(a);
                 }
             }
         } else {
-            if(x < a->codigo){
-                    a->esq=retira_no_avl(a->esq, x);
+            if(x < a->cod){
+                    a->esq=remove_avl(a->esq, x);
                     if(FB(a) == -2){
                         if(FB(a->dir) <= 0) {
-                            a =rotacao_esquerda(a);
+                            a =left_rot(a);
                         } else{
-                            a = rotacao_direita_esquerda(a);
+                            a = right_left_rot(a);
                         }
                     }    
             } else {
                   if(a->esq != NULL){
                       p = a->esq;
                       while(a->dir != NULL) p=p->dir;
-                      a->codigo = p->codigo;
-                      a->esq=retira_no_avl(a->esq, p->codigo);
+                      a->cod = p->cod;
+                      a->esq=remove_avl(a->esq, p->cod);
                       if(FB(a)== -2){
                         if(FB(a->dir) <=0){
-                            a = rotacao_esquerda(a);
+                            a = left_rot(a);
                         } else {
-                            a = rotacao_direita_esquerda(a);
+                            a = right_left_rot(a);
                         }
                       }
                    } else{
@@ -193,32 +195,32 @@ TAVL* retira_no_avl(TAVL *a, int x){
             }
         }
     }
-    a->alt=altura_avl_retirada(a);
+    a->alt=remove_height_avl(a);
     return(a);
 }
 
 //Função auxiliar para imprimir uma árvore AVL
-void imprime_nos_avl(TAVL *a, int andar, int imprimir_figura) { 
+void print_aux_avl(TAVL *a, int andar, int imprimir_figura) { 
 
     if(a){
     	int j;
-    	imprime_nos_avl(a->esq, andar+1, imprimir_figura);
+    	print_aux_avl(a->esq, andar+1, imprimir_figura);
     	for(j=0; j<=andar;j++) printf("   ");
-    	printf("%d ", a->codigo);
+    	printf("%d ", a->cod);
     	if(imprimir_figura) print_figura(a->geofig); else printf("\n");
-    	imprime_nos_avl(a->dir, andar+1, imprimir_figura);
+    	print_aux_avl(a->dir, andar+1, imprimir_figura);
     }
 } 
   
 //Imprime uma árvore AVL
-void imprime_arvore_avl(TAVL *a) { 
-   imprime_nos_avl(a, 1, 1); 
+void print_avl(TAVL *a) { 
+   print_aux_avl(a, 1, 1); 
 }
 
 // Converte uma árvore genérica em uma árvore AVL
 TAVL* convert_2_avl(GenTree *gentree, TAVL *avl){
 	if(gentree){
-		avl = insere_no_avl(avl, gentree->cod, gentree->geofig);
+		avl = insert_avl(avl, gentree->cod, gentree->geofig);
 		avl = convert_2_avl(gentree->child, avl);
 		avl = convert_2_avl(gentree->brother, avl);
 	}

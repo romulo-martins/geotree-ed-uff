@@ -109,7 +109,7 @@ void* get_gt_convert(GenTree *t) {
 	printf("TODO: Conversão árvore B\n"); // TODO: fazer a conversão árvore B
 
 	if(is_gt2avl){
-		TAVL *avl = inicializa_avl();
+		TAVL *avl = create_avl();
 		avl = convert_2_avl(t, avl);
 	} else {
 		printf("Error: tipo de conversão não encontrado para GenTree!\n");
