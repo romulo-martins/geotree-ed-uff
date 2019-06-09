@@ -44,15 +44,19 @@ void print(BTree *tree, int level){
 }
 
 void free_bt(BTree* tree) {
-    if(tree->leaf){                 //se for folha da free no nó
-        free(tree);
-    }else{
-        int i = 0;
-        while(i < tree->nkeys+1){   //percorre até o ultimo filho
-            free_bt(tree->childs[i]);
-            i++;
+    if(tree){
+        if(tree->leaf){                 //se for folha da free no nó
+                free(tree);
+        }else{
+            int i = 0;
+            while(i < tree->nkeys+1){   //percorre até o ultimo filho
+                if(i < tree->nkeys) free(tree->keys[i]);
+                free_bt(tree->childs[i]);
+                i++;
+            }
         }
     }
+    
 }
 
 BTree *split(BTree *x, BTree *y, int i, int t){
