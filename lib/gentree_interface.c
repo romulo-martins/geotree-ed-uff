@@ -9,7 +9,8 @@ void get_gt_help(void) {
 	printf("        [print   | -p]                             \n");
 	printf("        [destroy | -d]                             \n");
 	printf("        [convert | -cv <AVL, BTREE>                \n");
-	printf("        [load    | -l <path>]                      \n");
+	printf("        [load    | -l  <path>]                     \n");
+	printf("        [save    | -sv <path>]                     \n");
 	printf("        [edit    | -e <cod>]                       \n");
 	printf("\n");
 }
@@ -100,7 +101,8 @@ int is_gt_convert(char* cmd) {
 }
 
 int is_gt_edit(char* cmd){
-	return (strcmp(cmd, "edit") == 0) || (strcmp(cmd, "-e") == 0);
+	return (strcmp(cmd, "edit") == 0) || 
+			(strcmp(cmd, "-e") == 0);
 }
 
 GenTree* get_gt_convert(GenTree *t) {
@@ -120,6 +122,18 @@ GenTree* get_gt_load(GenTree* t) {
 	return t;
 }
 
+int is_gt_save(char* cmd) {
+	return (strcmp(cmd, "save") == 0) ||
+			(strcmp(cmd, "-sv") == 0);
+}
+
+GenTree* get_gt_save(GenTree* t) {
+	char path[100];
+	scanf("%s", path);
+	save_gt(t, path);
+	return t;
+}
+
 GenTree* gentree_cmds(GenTree* t) {
 	char cmd[50];
 	scanf("%s", cmd);
@@ -135,6 +149,7 @@ GenTree* gentree_cmds(GenTree* t) {
 	if(is_gt_destroy(cmd)) return get_gt_destroy(t);
 	if(is_gt_convert(cmd)) return get_gt_convert(t);
 	if(is_gt_load(cmd))    return get_gt_load(t);
+	if(is_gt_save(cmd))    return get_gt_save(t);
 	if(is_gt_edit(cmd))	   return get_gt_edit(t);
 	printf("Error: operação não encontrada para GenTree!\n");
 	return t;
