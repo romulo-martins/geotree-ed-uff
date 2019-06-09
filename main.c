@@ -32,8 +32,11 @@ GenTree* get_gt_insert(GenTree* t) {
 	char geo_fig[50];
 	scanf("%d/%d/%s", &cod, &cod_par, geo_fig);
 	TFIGURA *f = get_geofig(geo_fig);
-
-	t = insert_gt(t, cod, cod_par, f);
+	if(!f) {
+		printf("Error: Figura geométrica inválida.\n");
+	} else {
+		t = insert_gt(t, cod, cod_par, f);
+	}
 	return t;
 }
 
