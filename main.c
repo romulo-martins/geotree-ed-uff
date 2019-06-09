@@ -29,7 +29,7 @@ void show_help_opts(void) {
 	printf("        [search  ou -s (cod)]                       	\n");
 	printf("        [print   ou -p]                             	\n");
 	printf("        [destroy ou -d]                             	\n");
-	printf("        [convert ou -c (path)]              					\n");
+	printf("        [convert ou -c (path)/(t)]              					\n");
 	printf("Para sair do programa: exit ou quit                 	\n");
 }
 
