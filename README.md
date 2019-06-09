@@ -63,7 +63,7 @@ gentree load in/exemplo.txt
 
 Para exibir a arvore no terminal:
 ```
-gentree print
+gentree print --keys
 
  1 (0) 
 --- 2 (1) 

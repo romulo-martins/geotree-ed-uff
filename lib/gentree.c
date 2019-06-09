@@ -285,3 +285,24 @@ GenTree* load_gt(GenTree *t, char* path) {
 	}
 	return t;
 }
+
+// Salva no arquivo nó por nó de forma recursiva
+void _save_gt_node(GenTree *t, FILE *file) {
+	if(t && file) {
+		char* fig = figura_to_str(t->geofig);
+		fprintf(file, "%d/%d/%s\n", t->cod, t->cod_parent, fig);
+		free(fig);
+		_save_gt_node(t->child, file);
+		_save_gt_node(t->brother, file);
+	}
+}
+
+void save_gt(GenTree *t, char* path) {
+	FILE *file = fopen(path, "w");
+	if(file) {
+		_save_gt_node(t, file);
+		fclose(file);
+	} else {
+		printf("Error: caminho não encontrado!\n");	
+	}
+}

@@ -82,6 +82,17 @@ void print_figura(TFIGURA* f) {
 	if(!strcmp(f->tipo, TRAPEZIO)) printf("[%s %d %d %d %.2f]\n",f->tipo, f->base_menor, f->base_maior, f->altura, f->area);
 }
 
+// To String: Converte o struct de figura para uma string
+char* figura_to_str(TFIGURA* f) {
+	char *str = (char*)malloc(sizeof(char) * 32);
+	if(!strcmp(f->tipo, CIRCULO)) sprintf(str, "%s %d", f->tipo, f->dim); 
+	if(!strcmp(f->tipo, QUADRADO)) sprintf(str, "%s %d", f->tipo, f->dim);
+	if(!strcmp(f->tipo, TRIANGULO)) sprintf(str, "%s %d %d", f->tipo, f->base_menor, f->altura);
+	if(!strcmp(f->tipo, RETANGULO)) sprintf(str, "%s %d %d", f->tipo, f->base_menor, f->altura);
+	if(!strcmp(f->tipo, TRAPEZIO)) sprintf(str, "%s %d %d %d", f->tipo, f->base_menor, f->base_maior, f->altura);
+	return str;
+}
+
 /* Funções de edição para cada figura*/
 
 //Editar raio e área do círculo
