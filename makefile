@@ -8,5 +8,8 @@ gentree_figs_test: tests/gentree_figs_test.c lib/gentree.h lib/figuras.h lib/are
 gentree_load_test: tests/gentree_load_test.c lib/gentree.h lib/figuras.h lib/areas.h
 	gcc -o gentree_load_test.out tests/gentree_load_test.c lib/gentree.c lib/figuras.c lib/areas.c -lm
 
-main: main.c lib/gentree.h lib/figuras.h lib/areas.h lib/btree.h
-	gcc -o main.out main.c lib/gentree.c lib/figuras.c lib/areas.c lib/btree.c -lm
+btree_test: tests/btree_test.c lib/btree.h lib/gentree.h lib/figuras.h lib/areas.h
+	gcc -o btree_test.out tests/btree_test.c lib/btree.c lib/gentree.c lib/figuras.c lib/areas.c -lm
+
+main: main.c lib/gentree.h lib/figuras.h lib/areas.h
+	gcc -o main.out main.c lib/gentree.c lib/figuras.c lib/areas.c -lm
