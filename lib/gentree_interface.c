@@ -1,5 +1,25 @@
 #include "gentree_interface.h"
 
+void get_gt_help(void) {
+	printf("Operações da arvore genérica:                      \n");
+	printf("gentree | gt                                       \n");
+	printf("        [insert  | -in <cod>/<cod-parent>/<figure>]\n");
+	printf("        [remove  | -rm <cod>]                      \n");
+	printf("        [search  | -s <cod>]                       \n");
+	printf("        [print   | -p]                             \n");
+	printf("        [destroy | -d]                             \n");
+	printf("        [convert | -cv <AVL, BTREE>                \n");
+	printf("        [load    | -l <path>]                      \n");
+	printf("        [edit    | -e <cod>]                       \n");
+	printf("\n");
+}
+
+int is_gt_help(char* cmd) {
+	return (strcmp(cmd, "--help") == 0) ||
+			(strcmp(cmd, "-h") == 0) ||
+			(strcmp(cmd, " ") == 0); 
+}
+
 int is_gt_insert(char* cmd) {
 	return (strcmp(cmd, "insert") == 0) || 
 			(strcmp(cmd, "-in") == 0);
@@ -104,6 +124,10 @@ GenTree* gentree_cmds(GenTree* t) {
 	char cmd[50];
 	scanf("%s", cmd);
 
+	if(is_gt_help(cmd)) {
+		get_gt_help();
+		return t;
+	}
 	if(is_gt_insert(cmd))  return get_gt_insert(t);
 	if(is_gt_remove(cmd))  return get_gt_remove(t);
 	if(is_gt_search(cmd))  return get_gt_search(t);

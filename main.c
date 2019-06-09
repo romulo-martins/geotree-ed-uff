@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "lib/gentree.h"
 #include "lib/gentree_interface.h"
 
@@ -10,17 +11,13 @@ void show_welcome(void) {
 }
 
 void show_help_opts(void) {
-	printf("Operações da arvore genérica:                       \n");
-	printf("gentree ou gt                                       \n");
-	printf("        [insert  ou -in (cod)/(cod-parent)/(figure)]\n");
-	printf("        [remove  ou -rm (cod)]                      \n");
-	printf("        [search  ou -s (cod)]                       \n");
-	printf("        [print   ou -p]                             \n");
-	printf("        [destroy ou -d]                             \n");
-	printf("        [convert ou -cv --avl --btree]              \n");
-	printf("        [load    ou -l (path)]                      \n");
-	printf("        [edit    ou -e (cod)]                       \n");
-	printf("Para sair do programa: exit ou quit                 \n");
+	printf("Comandos disponiveis: \n");
+	printf("Arvore genérica: gentree | gt <opts>\n");
+	printf("Arvore AVL:      avl     |    <opts>\n");
+	printf("Arvore B:        btree   | bt <opts>\n");
+	printf("Para sair:       exit    | quit\n");
+	printf("Exibir as operações das arvores: <opts> = --help | -h \n");
+	printf("\n");
 }
 
 int is_help_cmd(char* cmd) {
@@ -51,6 +48,7 @@ int main(int argc, char const *argv[]) {
 		} else {
 			printf("Error: comando inválido!\n");
 		}
+		setbuf(stdin, NULL);
 		printf("\n");
 	} while(1); 
 
