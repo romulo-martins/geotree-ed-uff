@@ -4,7 +4,7 @@
 #include "gentree.h"
 
 typedef struct b_tree{
-    int nkeys, leaf; //número de chaves, informa se é folha
+    int nkeys, leaf, t; //número de chaves, informa se é folha e o parâmetro t
     GenTree **keys; //vetor de nós da arvore generica
     struct b_tree **childs; //ponteiro para o filho
 }BTree;

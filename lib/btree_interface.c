@@ -55,9 +55,10 @@ GenTree* get_gt_load_for_convert(GenTree* t) {
 	return t;
 }
 
-BTree* get_bt_convert(BTree* bt) {
+BTree* get_bt_convert(void) {
     GenTree* gt = new_gt();
     gt = get_gt_load_for_convert(gt);
+    BTree* bt = new_bt();
     int t = 0;
     scanf("%d", &t);
     if (t == 0){
@@ -80,7 +81,7 @@ BTree* btree_cmds(BTree* bt) {
 	if(is_bt_search(cmd))  return get_bt_search(bt);
 	if(is_bt_print(cmd))   return get_bt_print(bt);
 	if(is_bt_destroy(cmd)) return get_bt_destroy(bt);
-	if(is_bt_convert(cmd)) return get_bt_convert(bt);
+	if(is_bt_convert(cmd)) return get_bt_convert();
 	printf("Error: operação não encontrada para BTree!\n");
 	return bt;
 }
