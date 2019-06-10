@@ -4,7 +4,7 @@
 #include "gentree.h"
 #include "btree.h"
 
-BTree* btree_cmds(BTree* bt);
+BTree* btree_cmds(GenTree* gt, BTree* bt);
 int is_bt_cmd(char* cmd);
 
 #endif

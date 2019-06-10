@@ -23,14 +23,15 @@ void show_help_opts(void) {
 	printf("        [edit    ou -e (cod)]                       \n");
 	printf("Para sair do programa: exit ou quit                 \n");
 
-	printf("Operações da arvore B:                       			\n");
-	printf("btree ou bt                                       		\n");
-	printf("        [insert  ou -in (cod)/(cod-parent)/(figure)/(t)]\n");
-	printf("        [search  ou -s (cod)]                       	\n");
-	printf("        [print   ou -p]                             	\n");
-	printf("        [destroy ou -d]                             	\n");
-	printf("        [convert ou -c (path)/(t)]              					\n");
-	printf("Para sair do programa: exit ou quit                 	\n");
+	printf("Operações da arvore B:                       				\n");
+	printf("btree ou bt                                       			\n");
+	printf("        [insert  ou -in (cod)/(cod-parent)/(figure)/(t)]	\n");
+	printf("        [search  ou -s (cod)]                       		\n");
+	printf("        [print   ou -p]                             		\n");
+	printf("        [destroy ou -d]                             		\n");
+	printf("        [convert ou -c (path)/(t) se for por arquivo]		\n");
+	printf("        [convert ou -c (t) se for por instância em memória]	\n");
+	printf("Para sair do programa: exit ou quit                 		\n");
 }
 
 int is_help_cmd(char* cmd) {
@@ -59,7 +60,7 @@ int main(int argc, char const *argv[]) {
 		if(is_a_cmd(comand)) {
 			if(is_help_cmd(comand)) show_help_opts();
 			if(is_gt_cmd(comand)) t = gentree_cmds(t);
-			if(is_bt_cmd(comand)) bt = btree_cmds(bt);
+			if(is_bt_cmd(comand)) bt = btree_cmds(t, bt);
 		} else {
 			printf("Error: comando inválido!\n");
 		}
