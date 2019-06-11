@@ -63,7 +63,7 @@ gentree load in/exemplo.txt
 
 Para exibir a arvore no terminal:
 ```
-gentree print --keys
+gentree print
 
  1 (0) 
 --- 2 (1) 
@@ -134,20 +134,20 @@ OBS:
 
 ## Executanto testes
 
-Para compilar testes de árvore genérica: 
+Para compilar os testes de árvore genérica: 
 ```
 make gentree_test
 ```
-Para complicar testes de árvore B:
+Para compilar os testes de árvore B:
 ```
 make btree_test
 ```
 
-Para executar testes de árvore genérica:
+Para executar os testes de árvore genérica:
 ```
 ./gentree_test.out
 ```
-Para executar testes de árvore B:
+Para executar os testes de árvore B:
 ```
 ./btree_test.out
 ```
