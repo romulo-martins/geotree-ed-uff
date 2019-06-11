@@ -207,7 +207,7 @@ void print_aux_avl(TAVL *a, int andar, int imprimir_figura) {
     	print_aux_avl(a->esq, andar+1, imprimir_figura);
     	for(j=0; j<=andar;j++) printf("   ");
     	printf("%d ", a->cod);
-    	if(imprimir_figura) print_figura(a->geofig); else printf("\n");
+    	if(imprimir_figura && a->geofig) print_figura(a->geofig); else printf("\n");
     	print_aux_avl(a->dir, andar+1, imprimir_figura);
     }
 } 

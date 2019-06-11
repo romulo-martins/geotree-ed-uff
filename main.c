@@ -1,10 +1,7 @@
 #include <stdio.h>
 #include "lib/gentree.h"
-<<<<<<< HEAD
 #include "lib/avl.h"
-=======
 #include "lib/gentree_interface.h"
->>>>>>> 1715fe64b14780fe6e5250f7bffac5fd7f8590d0
 
 void show_welcome(void) {
 	printf("------------------------------------------\n");
@@ -15,7 +12,6 @@ void show_welcome(void) {
 }
 
 void show_help_opts(void) {
-<<<<<<< HEAD
 	printf("Operações da arvore genérica:                       \n");
 	printf("gentree ou gt                                       \n");
 	printf("        [insert  ou -in (cod)/(cod-parent)/(figure)]\n");
@@ -120,7 +116,6 @@ void* get_gt_convert(GenTree *t) {
 	} else {
 		printf("Error: tipo de conversão não encontrado para GenTree!\n");
 	}
-	//if(is_gt2btree) return
 
 	return t;
 }
