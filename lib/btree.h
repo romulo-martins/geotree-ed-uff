@@ -4,7 +4,7 @@
 #include "gentree.h"
 
 typedef struct b_tree{
-    int nkeys, leaf; //número de chaves, informa se é folha
+    int nkeys, leaf; //número de chaves, informa se é folha e o parâmetro t
     GenTree **keys; //vetor de nós da arvore generica
     struct b_tree **childs; //ponteiro para o filho
 }BTree;
@@ -20,3 +20,4 @@ BTree *split(BTree *x, BTree *y, int i, int t);
 BTree *insert_nonfull(BTree *tree, GenTree *node, int t);
 BTree *new_bt(void);
 BTree *convert_2_b_tree(GenTree *gentree, BTree *btree, int t);
+void print_figure(int code, BTree *btree);
