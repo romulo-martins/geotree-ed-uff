@@ -68,7 +68,7 @@ AVL* right_left_rot(AVL * p){
 AVL* create_node_avl(int codigo, TFIGURA* geofig){
 	AVL *node = (AVL*) malloc(sizeof(AVL));
 	node->cod = codigo;
-	node->geofig = copia_figura(geofig);
+	node->geofig = geofig ? copia_figura(geofig) : NULL;
 	node->esq = NULL;
 	node->dir = NULL;
 	return node;
@@ -194,7 +194,7 @@ void free_avl(AVL *a){
 	if(a){
 		free_avl(a->esq);
 		free_avl(a->dir);
-		free(a->geofig);
+		if(a->geofig) free(a->geofig);
 		free(a);
 	}
 }
