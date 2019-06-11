@@ -121,7 +121,7 @@ Para converter uma árvore genérica a partir de um arquivo:
 ```
 btree convert path t
 ```
-Onde `path` é o caminho do arquivo desejado e `t` é o parâmetro 't' necessário para a árvore B.
+Onde `path` é o caminho do arquivo desejado e `t` é o valor inteiro do parâmetro 't' necessário para a árvore B.
 
 Para converter uma árvore genérica a partir de uma instância de uma árvore genérica presente em memória:
 ```
