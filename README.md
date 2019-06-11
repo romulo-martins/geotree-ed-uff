@@ -93,18 +93,61 @@ exit
 Fim do programa ...
 ```
 
+Os comandos relacionados a árvore B seguem o formato `btree <options>` onde `<options>` pode ser algumas das operações listadas a seguir.
+
+Para exibir as operações da árvore B:
+```
+btree --help
+```
+
+Para buscar uma figura dentro da árvore B:
+```
+btree search
+```
+
+Para imprimir uma árvore B:
+```
+btree print
+```
+
+Para destruir uma árvore B:
+```
+btree destroy
+```
+
+A conversão de uma árvore genérica em uma árvore B ocorre por meio dos comandos a seguir:
+
+Para converter uma árvore genérica a partir de um arquivo:
+```
+btree convert path t
+```
+Onde `path` é o caminho do arquivo desejado e `t` é o parâmetro 't' necessário para a árvore B.
+
+Para converter uma árvore genérica a partir de uma instância de uma árvore genérica presente em memória:
+```
+btree convert t
+```
+
 OBS:
-* Apos cada operação você pode exibir a arvore no console (`gentree print`) para poder visualizar como a arvore está se comportando.
-* Todos comandos possuem abreviações, por exemplo, se desejar exibir a arvore no console também pode ser executado o comando `gentree -p`, `gt print` ou mesmo `gt -p`.
+* Apos cada operação você pode exibir a arvore no console (`gentree print`) para poder visualizar como a arvore está se comportando. O mesmo deve ser feito para as demais árvores.
+* Todos comandos possuem abreviações, por exemplo, se desejar exibir a arvore no console também pode ser executado o comando `gentree -p`, `gt print` ou mesmo `gt -p`, bem como na árvore B como por exemplo `btree -p`, `bt print`, `bt -p`.
 
 ## Executanto testes
 
-Para compilar: 
+Para compilar testes de árvore genérica: 
 ```
 make gentree_test
 ```
-
-Para rodar:
+Para complicar testes de árvore B:
 ```
-./gentree_test
+make btree_test
+```
+
+Para executar testes de árvore genérica:
+```
+./gentree_test.out
+```
+Para executar testes de árvore B:
+```
+./btree_test.out
 ```
