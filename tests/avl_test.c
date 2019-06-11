@@ -5,14 +5,16 @@ Realiza testes das operações básicas da árvore, sem levar em consideração 
 #include "../lib/avl.h"
 
 // Interface dos testes
-TAVL* avl_factory(void);
+AVL* avl_factory(void);
 void insere_test(void);
 void busca_test(void);
+void remove_test(void);
 
 // Main dos testes
 int main (int argc, char const *argv[]){
 	insere_test();
 	busca_test();
+	//remove_test();
 
 	return 0;
 
@@ -36,18 +38,18 @@ Saída (apenas código):
 		 15      30
 */
 
-TAVL* avl_factory(void){
-	TAVL *a = inicializa_avl();
-	a = insere_no_avl(a, 50, NULL);
-	a = insere_no_avl(a, 25, NULL);
-	a = insere_no_avl(a, 10, NULL);
-	a = insere_no_avl(a, 5, NULL);
-	a = insere_no_avl(a, 7, NULL);
-	a = insere_no_avl(a, 3, NULL);
-	a = insere_no_avl(a, 30, NULL);
-	a = insere_no_avl(a, 20, NULL);
-	a = insere_no_avl(a, 8, NULL);
-	a = insere_no_avl(a, 15, NULL);
+AVL* avl_factory(void){
+	AVL *a = new_avl();
+	a = insert_avl(a, 50, NULL);
+	a = insert_avl(a, 25, NULL);
+	a = insert_avl(a, 10, NULL);
+	a = insert_avl(a, 5, NULL);
+	a = insert_avl(a, 7, NULL);
+	a = insert_avl(a, 3, NULL);
+	a = insert_avl(a, 30, NULL);
+	a = insert_avl(a, 20, NULL);
+	a = insert_avl(a, 8, NULL);
+	a = insert_avl(a, 15, NULL);
 
 	return a;
 }
@@ -56,41 +58,45 @@ TAVL* avl_factory(void){
 void busca_test(void){
 	printf("\n Teste de buscas ...\n");
 
-	TAVL *a = avl_factory();
-	if(busca_avl(a, 10))  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 7))   printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 3))   printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 20))  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 8))   printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 15))  printf("OK\n"); else printf("ERROR\n");
+	AVL *a = avl_factory();
+	if(avl_find(a, 10))  printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 7))   printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 3))   printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 20))  printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 8))   printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 15))  printf("OK\n"); else printf("ERROR\n");
 
-	libera_arvore_avl(a);
+	free_avl(a);
 }
 
 void insere_test(void){
 	printf("\n Teste de inserção... \n");
 
-	TAVL *a = avl_factory();
-	a = insere_no_avl(a, 12, NULL);
-	a = insere_no_avl(a, 13, NULL);
-	a = insere_no_avl(a, 14, NULL);
-	a = insere_no_avl(a, 15, NULL);
-	a = insere_no_avl(a, 16, NULL);
+	AVL *a = avl_factory();
+	a = insert_avl(a, 12, NULL);
+	a = insert_avl(a, 13, NULL);
+	a = insert_avl(a, 14, NULL);
+	a = insert_avl(a, 15, NULL);
+	a = insert_avl(a, 16, NULL);
 
-	if(busca_avl(a, 12))  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 13))  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 14))  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 15))  printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 16))  printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 12))  printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 13))  printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 14))  printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 15))  printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 16))  printf("OK\n"); else printf("ERROR\n");
 
-	//libera_arvore_avl(a);
+	free_avl(a);
 }
 
 void remove_test(void){
 	printf("Testes de remoção...\n");
 
-	TAVL *a = avl_factory();
-	a = retira_no_avl(a, 10); //Remove a raiz
-	if(!busca_avl(a, 10)) printf("OK\n"); else printf("ERROR\n");
-	if(busca_avl(a, 7)) printf("OK\n"); else printf("ERROR\n");
+	AVL *a = avl_factory();
+	a = remove_avl(a, 10); //Remove a raiz
+
+	if(!avl_find(a, 10)) printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 7)) printf("OK\n"); else printf("ERROR\n");
+	if(avl_find(a, 25)) printf("OK\n"); else printf("ERROR\n");
+
+	free_avl(a);
 }

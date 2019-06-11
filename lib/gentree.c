@@ -242,7 +242,7 @@ void print_gt(GenTree *t) {
 		printf("Error: arvore vazia!\n");
 		return;
 	}
-	print_2d(t, 0, 0);
+	print_2d(t, 1, 0);
 }
 
 

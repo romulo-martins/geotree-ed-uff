@@ -7,14 +7,8 @@
 #include "avl.h"
 #include "figuras.h"
 
-//Libera espaço de memória da árvore
-void free_avl(AVL *a){
-	if(a){
-		free_avl(a->esq);
-		free_avl(a->dir);
-		free(a->geofig);
-		free(a);
-	}
+AVL* new_avl(void){
+	return NULL;
 }
 
 //Busca um elemento na árvore de acordo com um código informado
@@ -71,7 +65,7 @@ AVL* right_left_rot(AVL * p){
 }
 
 //Cria um nó para a árvore AVL
-AVL* create_node_avl(int codigo, void* geofig){
+AVL* create_node_avl(int codigo, TFIGURA* geofig){
 	AVL *node = (AVL*) malloc(sizeof(AVL));
 	node->cod = codigo;
 	node->geofig = geofig;
@@ -80,15 +74,11 @@ AVL* create_node_avl(int codigo, void* geofig){
 	return node;
 }
 
-AVL* new_avl(void){
-	return NULL;
-}
-
 //Função recursiva para adicionar um nó em uma árvore AVL
-AVL* insert_avl(AVL *a, int codigo, void *geofig){
+AVL* insert_avl(AVL *a, int codigo, TFIGURA *geofig){
 
 	//Verifica se a árvore está vazia
-	if(!a) return create_node_avl(codigo, geofig);
+	if(!a) a = create_node_avl(codigo, geofig);
 
 	if(codigo < a->cod){
 		a->esq = insert_avl(a->esq, codigo, a->geofig);
@@ -199,6 +189,16 @@ AVL* remove_avl(AVL *a, int x){
     return(a);
 }
 
+//Libera espaço de memória da árvore
+void free_avl(AVL *a){
+	if(a){
+		free_avl(a->esq);
+		free_avl(a->dir);
+		free(a->geofig);
+		free(a);
+	}
+}
+
 //Função auxiliar para imprimir uma árvore AVL
 void print_aux_avl(AVL *a, int andar, int imprimir_figura) { 
 
@@ -214,7 +214,7 @@ void print_aux_avl(AVL *a, int andar, int imprimir_figura) {
   
 //Imprime uma árvore AVL
 void avl_print(AVL *a) { 
-   print_aux_avl(a, 1, 1); 
+   print_aux_avl(a, 1, 0); 
 }
 
 // Converte uma árvore genérica em uma árvore AVL
