@@ -28,5 +28,6 @@ TFIGURA* criar_trapezio(char* tipo, int base_menor, int base_maior, int altura);
 void print_figura(TFIGURA* f);
 char* figura_to_str(TFIGURA* f);
 TFIGURA* editar_no(TFIGURA* f);
+TFIGURA* copia_figura(TFIGURA* f);
 
 #endif
