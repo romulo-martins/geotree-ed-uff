@@ -8,7 +8,7 @@
 #include "figuras.h"
 
 //Libera espaço de memória da árvore
-void free_avl(TAVL *a){
+void free_avl(AVL *a){
 	if(a){
 		free_avl(a->esq);
 		free_avl(a->dir);
@@ -18,10 +18,10 @@ void free_avl(TAVL *a){
 }
 
 //Busca um elemento na árvore de acordo com um código informado
-TAVL* find_avl(TAVL *a, int codigo){
+AVL* avl_find(AVL *a, int codigo){
 	if(a == NULL) return NULL;
-	if(codigo < a->cod) return find_avl(a->esq, codigo);
-	if(codigo > a->cod) return find_avl(a->dir,codigo);
+	if(codigo < a->cod) return avl_find(a->esq, codigo);
+	if(codigo > a->cod) return avl_find(a->dir,codigo);
 	return a;
 }
 
@@ -31,15 +31,15 @@ int biggest(int altura_esq, int altura_dir){
 }
 
 // Calcula a altura da árvore AVL
-int height_avl(TAVL *a){
+int height_avl(AVL *a){
 	if(a == NULL) return -1;
 	return a->alt;
 }
 
 
 //Performa rotação à direita.
-TAVL* right_rot(TAVL *t){
-	TAVL *p = NULL;
+AVL* right_rot(AVL *t){
+	AVL *p = NULL;
 	p = t->esq;
 	t->esq = p->dir;
 	p->dir = t;
@@ -49,8 +49,8 @@ TAVL* right_rot(TAVL *t){
 }
 
 //Performa rotação à esquerda.
-TAVL* left_rot(TAVL *p){
-	TAVL *t;
+AVL* left_rot(AVL *p){
+	AVL *t;
 	t = p->dir;
 	p->dir = t->esq;
 	t->esq = p;
@@ -60,19 +60,19 @@ TAVL* left_rot(TAVL *p){
 }
 
 //Performa rotação dupla esquerda-direita (RED)
-TAVL* left_right_rot(TAVL* q){
+AVL* left_right_rot(AVL* q){
 	q->esq = left_rot(q->esq);
 	return right_rot(q);
 }
 
-TAVL* right_left_rot(TAVL * p){
+AVL* right_left_rot(AVL * p){
 	p->dir = right_rot(p->dir);
 	return left_rot(p);
 }
 
 //Cria um nó para a árvore AVL
-TAVL* create_node_avl(int codigo, void* geofig){
-	TAVL *node = (TAVL*) malloc(sizeof(TAVL));
+AVL* create_node_avl(int codigo, void* geofig){
+	AVL *node = (AVL*) malloc(sizeof(AVL));
 	node->cod = codigo;
 	node->geofig = geofig;
 	node->esq = NULL;
@@ -80,12 +80,12 @@ TAVL* create_node_avl(int codigo, void* geofig){
 	return node;
 }
 
-TAVL* create_avl(void){
+AVL* new_avl(void){
 	return NULL;
 }
 
 //Função recursiva para adicionar um nó em uma árvore AVL
-TAVL* insert_avl(TAVL *a, int codigo, void *geofig){
+AVL* insert_avl(AVL *a, int codigo, void *geofig){
 
 	//Verifica se a árvore está vazia
 	if(!a) return create_node_avl(codigo, geofig);
@@ -114,7 +114,7 @@ TAVL* insert_avl(TAVL *a, int codigo, void *geofig){
 }	
 
 //Calcula a altura da árvore durante a operação de retirada do nó
-int remove_height_avl(TAVL *a){
+int remove_height_avl(AVL *a){
 	int altura_esq, altura_dir;
 	if(a == NULL) return 0;
 	if(a->esq == NULL){
@@ -131,7 +131,7 @@ int remove_height_avl(TAVL *a){
 	return altura_dir;
 }
 
-int FB(TAVL *a){
+int FB(AVL *a){
 	int altura_esq, altura_dir;
 	if(a == NULL) return 0;
 	if(a->esq == NULL) {
@@ -149,8 +149,8 @@ int FB(TAVL *a){
 }
 
 //Retira um nó da árvore de acordo com o código informado
-TAVL* remove_avl(TAVL *a, int x){       
-    TAVL *p;
+AVL* remove_avl(AVL *a, int x){       
+    AVL *p;
     if(a==NULL){
         return NULL;
     } else{
@@ -187,7 +187,7 @@ TAVL* remove_avl(TAVL *a, int x){
                         }
                       }
                    } else{
-                      TAVL *x = a;
+                      AVL *x = a;
                       a = a->dir;
                       free(x);
                       return(a);
@@ -200,7 +200,7 @@ TAVL* remove_avl(TAVL *a, int x){
 }
 
 //Função auxiliar para imprimir uma árvore AVL
-void print_aux_avl(TAVL *a, int andar, int imprimir_figura) { 
+void print_aux_avl(AVL *a, int andar, int imprimir_figura) { 
 
     if(a){
     	int j;
@@ -213,16 +213,24 @@ void print_aux_avl(TAVL *a, int andar, int imprimir_figura) {
 } 
   
 //Imprime uma árvore AVL
-void print_avl(TAVL *a) { 
+void avl_print(AVL *a) { 
    print_aux_avl(a, 1, 1); 
 }
 
 // Converte uma árvore genérica em uma árvore AVL
-TAVL* convert_2_avl(GenTree *gentree, TAVL *avl){
+AVL* convert_2_avl(GenTree *gentree, AVL *avl){
 	if(gentree){
 		avl = insert_avl(avl, gentree->cod, gentree->geofig);
 		avl = convert_2_avl(gentree->child, avl);
 		avl = convert_2_avl(gentree->brother, avl);
 	}
 	return avl;
+}
+
+void print_avl_figure(int cod, AVL *at) {
+    AVL *a = avl_find(at, cod);
+    if (a->geofig)
+        print_figura(a->geofig);
+    else
+        printf("Este nó não possui figura associada.\n");
 }

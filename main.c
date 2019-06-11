@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "lib/gentree.h"
-#include "lib/avl.h"
+#include "lib/avl_interface.h"
 #include "lib/gentree_interface.h"
 #include "lib/btree_interface.h"
 
@@ -13,26 +13,13 @@ void show_welcome(void) {
 }
 
 void show_help_opts(void) {
-	printf("Operações da arvore genérica:                       \n");
-	printf("gentree ou gt                                       \n");
-	printf("        [insert  ou -in (cod)/(cod-parent)/(figure)]\n");
-	printf("        [remove  ou -rm (cod)]                      \n");
-	printf("        [search  ou -s (cod)]                       \n");
-	printf("        [print   ou -p]                             \n");
-	printf("        [destroy ou -d]                             \n");
-	printf("        [convert ou -cv --avl --btree]              \n");
-	printf("        [load    ou -l (path)]                      \n");
-	printf("        [edit    ou -e (cod)]                       \n");
-	printf("Para sair do programa: exit ou quit                 \n");
-}
-
-
-int is_gt2avl(char* cmd){
-	return strcmp(cmd, "--avl") == 0;
-}
-
-int is_gt2btree(char* cmd){
-	return strcmp(cmd, "--btree") == 0;
+	printf("Comandos disponiveis: \n");
+	printf("Arvore genérica: gentree | gt <opts>\n");
+	printf("Arvore AVL:      avl     |    <opts>\n");
+	printf("Arvore B:        btree   | bt <opts>\n");
+	printf("Para sair:       exit    | quit\n");
+	printf("Exibir as operações das arvores: <opts> = --help | -h \n");
+	printf("\n");
 }
 
 int is_help_cmd(char* cmd) {
@@ -46,7 +33,7 @@ int is_exit(char* cmd) {
 }
 
 int is_a_cmd(char* cmd) {
-	return is_gt_cmd(cmd) || is_help_cmd(cmd) || is_bt_cmd(cmd);
+	return is_gt_cmd(cmd) || is_help_cmd(cmd) || is_bt_cmd(cmd) || is_avl_cmd(cmd);
 }	
 
 int main(int argc, char const *argv[]) {
@@ -54,6 +41,8 @@ int main(int argc, char const *argv[]) {
 
 	GenTree *t = new_gt();
 	BTree *bt = new_bt();
+	AVL *avl = new_avl();
+
 	char comand[50];
 	do {
 		scanf("%s", comand);
@@ -62,6 +51,7 @@ int main(int argc, char const *argv[]) {
 			if(is_help_cmd(comand)) show_help_opts();
 			if(is_gt_cmd(comand)) t = gentree_cmds(t);
 			if(is_bt_cmd(comand)) bt = btree_cmds(t, bt);
+			if(is_avl_cmd(comand)) avl = avl_cmds(t, avl);
 		} else {
 			printf("Error: comando inválido!\n");
 		}

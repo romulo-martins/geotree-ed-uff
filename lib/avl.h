@@ -12,14 +12,15 @@ typedef struct tavl {
 	void* geofig; // a informação do nó, ou seja, a figura geométrica
 	int alt; //altura do nó
 	struct tavl *esq, *dir; // nós da esquerda e da direita
-} TAVL;
+} AVL;
 
-TAVL* insert_avl(TAVL *a, int codigo, void *geofig);
-TAVL* remove_avl(TAVL *a, int x);
-void print_avl(TAVL *a);
-void free_avl(TAVL *a);
-TAVL* create_avl(void);
-TAVL* find_avl(TAVL *a, int codigo);
-TAVL* convert_2_avl(GenTree *gentree, TAVL *avl);
+AVL* insert_avl(AVL *a, int codigo, void *geofig);
+AVL* remove_avl(AVL *a, int x);
+void avl_print(AVL *a);
+void free_avl(AVL *a);
+AVL* new_avl(void);
+AVL* avl_find(AVL *a, int codigo);
+AVL* convert_2_avl(GenTree *gentree, AVL *avl);
+void print_avl_figure(int cod, AVL *at);
 
 #endif

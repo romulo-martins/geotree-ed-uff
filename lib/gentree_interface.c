@@ -13,7 +13,6 @@ void get_gt_help(void) {
 	printf("        [search  | -s <cod>]                       \n");
 	printf("        [print   | -p]                             \n");
 	printf("        [destroy | -d]                             \n");
-	printf("        [convert | -cv <AVL, BTREE>                \n");
 	printf("        [load    | -l  <path>]                     \n");
 	printf("        [save    | -sv <path>]                     \n");
 	printf("        [edit    | -e <cod>]                       \n");
@@ -104,11 +103,6 @@ int is_gt_edit(char* cmd){
 			(strcmp(cmd, "-e") == 0);
 }
 
-GenTree* get_gt_convert(GenTree *t) {
-	printf("TODO: Conversão\n"); // TODO: fazer a conversão
-	return t;
-}
-
 int is_gt_load(char* cmd) {
 	return (strcmp(cmd, "load") == 0) ||
 			(strcmp(cmd, "-l") == 0);
@@ -146,7 +140,6 @@ GenTree* gentree_cmds(GenTree* t) {
 	if(is_gt_search(cmd))  return get_gt_search(t);
 	if(is_gt_print(cmd))   return get_gt_print(t);
 	if(is_gt_destroy(cmd)) return get_gt_destroy(t);
-	if(is_gt_convert(cmd)) return get_gt_convert(t);
 	if(is_gt_load(cmd))    return get_gt_load(t);
 	if(is_gt_save(cmd))    return get_gt_save(t);
 	if(is_gt_edit(cmd))	   return get_gt_edit(t);
