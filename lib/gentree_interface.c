@@ -1,5 +1,10 @@
 #include "gentree_interface.h"
 
+int is_gt_help(char* cmd) {
+	return (strcmp(cmd, "--help") == 0) ||
+			(strcmp(cmd, "-h") == 0); 
+}
+
 void get_gt_help(void) {
 	printf("Operações da arvore genérica:                      \n");
 	printf("gentree | gt                                       \n");
@@ -13,12 +18,6 @@ void get_gt_help(void) {
 	printf("        [save    | -sv <path>]                     \n");
 	printf("        [edit    | -e <cod>]                       \n");
 	printf("\n");
-}
-
-int is_gt_help(char* cmd) {
-	return (strcmp(cmd, "--help") == 0) ||
-			(strcmp(cmd, "-h") == 0) ||
-			(strcmp(cmd, " ") == 0); 
 }
 
 int is_gt_insert(char* cmd) {

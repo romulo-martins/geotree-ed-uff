@@ -17,5 +17,5 @@ avl_test: tests/avl_test.c lib/avl.c lib/avl.h lib/figuras.h lib/areas.h
 btree_test: tests/btree_test.c lib/btree.h lib/gentree.h lib/figuras.h lib/areas.h
 	gcc -o btree_test.out tests/btree_test.c lib/btree.c lib/gentree.c lib/figuras.c lib/areas.c -lm
 
-main: main.c lib/gentree.h lib/gentree_interface.h lib/figuras.h lib/areas.h
-	gcc -o main.out main.c lib/gentree.c lib/gentree_interface.c lib/figuras.c lib/areas.c -lm
+main: main.c lib/gentree.h lib/gentree_interface.h lib/figuras.h lib/areas.h lib/btree_interface.h lib/btree.h
+	gcc -o main.out main.c lib/gentree.c lib/gentree_interface.c lib/figuras.c lib/areas.c lib/btree_interface.c lib/btree.c -lm
