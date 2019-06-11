@@ -8,7 +8,6 @@ int is_bt_help(char* cmd) {
 void get_bt_help(void) {
 	printf("Operações da arvore B:                       				\n");
 	printf("btree ou bt                                       			\n");
-	printf("        [insert  ou -in (cod)/(cod-parent)/(figure)/(t)]	\n");
 	printf("        [search  ou -s (cod)]                       		\n");
 	printf("        [print   ou -p]                             		\n");
 	printf("        [destroy ou -d]                             		\n");
