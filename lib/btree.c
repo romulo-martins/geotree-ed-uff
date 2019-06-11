@@ -9,6 +9,7 @@
 BTree *new_bt(void) {
     return NULL;
 }
+
 BTree *create(int t) {
     BTree *node = (BTree *)malloc(sizeof(BTree));
     node->leaf = 1;
@@ -134,7 +135,7 @@ BTree *insert(BTree *tree, GenTree *node, int t) {
 BTree *convert_2_b_tree(GenTree *gentree, BTree *btree, int t) {
     if (gentree)
     {
-        btree = insert(btree, gentree, t);
+        btree = insert(btree, copy_gt_node(gentree), t);
         btree = convert_2_b_tree(gentree->child, btree, t);
         btree = convert_2_b_tree(gentree->brother, btree, t);
     }

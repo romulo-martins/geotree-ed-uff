@@ -16,7 +16,7 @@ typedef struct gentree {
 
 typedef struct gentree GenTree;
 GenTree* new_gt(void);
-GenTree* insert_gt(GenTree* t, int cod_geo, int cod_parent, void* geofig);
+GenTree* insert_gt(GenTree* t, int cod_geo, int cod_parent, TFIGURA* geofig);
 GenTree* search_gt(GenTree* t, int cod);
 GenTree* remove_gt(GenTree* t, int cod);
 void print_gt(GenTree *t);
@@ -26,5 +26,6 @@ GenTree* load_gt(GenTree *t, char* path);
 void save_gt(GenTree *t, char* path);
 GenTree* edit_gt(GenTree* t, int cod);
 TFIGURA* get_geofig(char* tipo);
+GenTree* copy_gt_node(GenTree* t);
 
 #endif

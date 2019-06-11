@@ -12,7 +12,7 @@ GenTree* new_gt(void) {
 }
 
 // Cria um novo nó da arvore genérica.
-GenTree* _create_node_gt(int cod, int cod_parent, void* geofig) {
+GenTree* _create_node_gt(int cod, int cod_parent, TFIGURA* geofig) {
 	GenTree *node = (GenTree*) malloc(sizeof(GenTree));
 	node->cod = cod;
 	node->cod_parent = cod_parent;
@@ -23,7 +23,7 @@ GenTree* _create_node_gt(int cod, int cod_parent, void* geofig) {
 }
 
 // Insere uma nova figura geométrica na árvore, a partir de seu código e o código do pai.
-GenTree* insert_gt(GenTree* t, int cod, int cod_parent, void* geofig) {
+GenTree* insert_gt(GenTree* t, int cod, int cod_parent, TFIGURA* geofig) {
 	if(search_gt(t, cod)) {
 		printf("Error: um elemento de codigo %d já existe, informe um outro código.\n", cod);
 		return t;	
@@ -305,4 +305,9 @@ void save_gt(GenTree *t, char* path) {
 	} else {
 		printf("Error: caminho não encontrado!\n");	
 	}
+}
+
+GenTree* copy_gt_node(GenTree* t) {
+	if(!t) return t;
+	return _create_node_gt(t->cod, t->cod_parent, copia_figura(t->geofig));
 }
