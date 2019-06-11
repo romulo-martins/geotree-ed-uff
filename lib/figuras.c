@@ -199,5 +199,6 @@ TFIGURA* editar_no(TFIGURA* f){
 }
 
 TFIGURA* copia_figura(TFIGURA* f) {
+	if(!f) return NULL;
 	return criar_no(f->tipo, f->dim, f->base_menor, f->base_maior, f->altura);
 }

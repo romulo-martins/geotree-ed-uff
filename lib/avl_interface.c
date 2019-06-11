@@ -26,7 +26,7 @@ AVL* get_avl_search(AVL *t) {
 	scanf("%d", &cod);
 	AVL *node = avl_find(t, cod);
 	if(node) {
-        print_avl_figure(cod, node);
+        print_figura(node->geofig);
 	} else {
 		printf("Error: figura não encontrada.\n");
 	}

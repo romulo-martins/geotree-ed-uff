@@ -68,7 +68,7 @@ AVL* right_left_rot(AVL * p){
 AVL* create_node_avl(int codigo, TFIGURA* geofig){
 	AVL *node = (AVL*) malloc(sizeof(AVL));
 	node->cod = codigo;
-	node->geofig = geofig ? copia_figura(geofig) : NULL;
+	node->geofig = copia_figura(geofig);
 	node->esq = NULL;
 	node->dir = NULL;
 	return node;
@@ -81,7 +81,7 @@ AVL* insert_avl(AVL *a, int codigo, TFIGURA *geofig){
 	if(!a) a = create_node_avl(codigo, geofig);
 
 	if(codigo < a->cod){
-		a->esq = insert_avl(a->esq, codigo, a->geofig);
+		a->esq = insert_avl(a->esq, codigo, geofig);
 		if(height_avl(a->esq) - height_avl(a->dir) == 2){
 			if(codigo < a->esq->cod){
 				a = right_rot(a);
@@ -90,7 +90,7 @@ AVL* insert_avl(AVL *a, int codigo, TFIGURA *geofig){
 			}
 		}	
 	} else if(codigo > a->cod){
-		a->dir = insert_avl(a->dir, codigo, a->geofig);
+		a->dir = insert_avl(a->dir, codigo, geofig);
 		if(height_avl(a->dir) - height_avl(a->esq) == 2){
 			if(codigo > a->dir->cod){
 				a = left_rot(a);
