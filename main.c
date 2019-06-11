@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "lib/gentree.h"
+#include "lib/avl_interface.h"
 #include "lib/gentree_interface.h"
 #include "lib/btree_interface.h"
 
@@ -32,7 +33,7 @@ int is_exit(char* cmd) {
 }
 
 int is_a_cmd(char* cmd) {
-	return is_gt_cmd(cmd) || is_help_cmd(cmd) || is_bt_cmd(cmd);
+	return is_gt_cmd(cmd) || is_help_cmd(cmd) || is_bt_cmd(cmd) || is_avl_cmd(cmd);
 }	
 
 int main(int argc, char const *argv[]) {
@@ -40,6 +41,8 @@ int main(int argc, char const *argv[]) {
 
 	GenTree *t = new_gt();
 	BTree *bt = new_bt();
+	AVL *avl = new_avl();
+
 	char comand[50];
 	do {
 		scanf("%s", comand);
@@ -48,6 +51,7 @@ int main(int argc, char const *argv[]) {
 			if(is_help_cmd(comand)) show_help_opts();
 			if(is_gt_cmd(comand)) t = gentree_cmds(t);
 			if(is_bt_cmd(comand)) bt = btree_cmds(t, bt);
+			if(is_avl_cmd(comand)) avl = avl_cmds(t, avl);
 		} else {
 			printf("Error: comando inválido!\n");
 		}
