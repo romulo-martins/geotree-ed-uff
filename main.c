@@ -62,6 +62,6 @@ int main(int argc, char const *argv[]) {
 	printf("Fim do programa ...\n");
 	free_gt(t);
 	free_bt(bt);
-
+	free_avl(avl);
 	return 0;
 }
