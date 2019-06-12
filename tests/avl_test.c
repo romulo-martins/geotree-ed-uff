@@ -8,13 +8,11 @@ Realiza testes das operações básicas da árvore, sem levar em consideração 
 AVL* avl_factory(void);
 void insere_test(void);
 void busca_test(void);
-void remove_test(void);
 
 // Main dos testes
 int main (int argc, char const *argv[]){
 	insere_test();
 	busca_test();
-	//remove_test();
 
 	return 0;
 
@@ -84,19 +82,6 @@ void insere_test(void){
 	if(avl_find(a, 14))  printf("OK\n"); else printf("ERROR\n");
 	if(avl_find(a, 15))  printf("OK\n"); else printf("ERROR\n");
 	if(avl_find(a, 16))  printf("OK\n"); else printf("ERROR\n");
-
-	free_avl(a);
-}
-
-void remove_test(void){
-	printf("Testes de remoção...\n");
-
-	AVL *a = avl_factory();
-	a = remove_avl(a, 10); //Remove a raiz
-
-	if(!avl_find(a, 10)) printf("OK\n"); else printf("ERROR\n");
-	if(avl_find(a, 7)) printf("OK\n"); else printf("ERROR\n");
-	if(avl_find(a, 25)) printf("OK\n"); else printf("ERROR\n");
 
 	free_avl(a);
 }
