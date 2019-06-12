@@ -8,7 +8,7 @@ int is_avl_help(char* cmd) {
 void get_avl_help(void) {
 	printf("Operações da arvore AVL:                       				\n");
 	printf("avl ou at                                       			\n");
-	printf("        [insert  ou -in <cod>/<figure>]                     \n");
+	printf("        [insert  ou -in <cod>/<figure> <figure-opts>]       \n");
 	printf("        [search  ou -s <cod>]                       		\n");
 	printf("        [print   ou -p]                             		\n");
 	printf("        [destroy ou -d]                             		\n");
