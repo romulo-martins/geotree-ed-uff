@@ -5,7 +5,7 @@
 
 typedef struct b_tree{
     int nkeys, leaf, t; //número de chaves, informa se é folha e o parâmetro t
-    GenTree **keys; //vetor de nós da arvore generica
+    GenTree **gentree_nodes; //vetor de nós da arvore generica
     struct b_tree **childs; //ponteiro para o filho
 }BTree;
 
