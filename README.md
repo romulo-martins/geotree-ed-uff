@@ -100,6 +100,15 @@ Para exibir as operações da árvore B:
 btree --help
 ```
 
+Para inserir um novo nó na árvore B:
+```
+btree insert cod/cod_pai/FIGURA dimensao_figura t
+```
+Exemplo:
+```
+btree insert 11/3/CIR 3 2
+```
+
 Para buscar uma figura dentro da árvore B:
 ```
 btree search
