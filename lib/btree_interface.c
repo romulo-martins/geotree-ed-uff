@@ -6,14 +6,43 @@ int is_bt_help(char* cmd) {
 }
 
 void get_bt_help(void) {
-	printf("Operações da arvore B:                       				\n");
-	printf("btree ou bt                                       			\n");
-	printf("        [search  ou -s (cod)]                       		\n");
-	printf("        [print   ou -p]                             		\n");
-	printf("        [destroy ou -d]                             		\n");
-	printf("        [convert ou -c (path)/(t) se for por arquivo]		\n");
-	printf("        [convert ou -c (t) se for por instância em memória]	\n");
+	printf("Operações da arvore B:                       							\n");
+	printf("btree ou bt                                       						\n");
+	printf("        [insert  | -in <cod>/<cod-parent>/<FIGURE> <figure-opts> <t>]	\n");
+	printf("        [search  ou -s (cod)]                       					\n");
+	printf("        [print   ou -p]                             					\n");
+	printf("        [destroy ou -d]                             					\n");
+	printf("        [convert ou -c <path> <t>) se for por arquivo]					\n");
+	printf("        [convert ou -c <t> se for por instância em memória]				\n");
 	printf("\n");
+}
+
+int is_bt_insert(char* cmd) {
+	return (strcmp(cmd, "insert") == 0) || 
+			(strcmp(cmd, "-in") == 0);
+}
+
+BTree* get_bt_insert(GenTree* gt, BTree *btree) {
+	int cod, cod_par, t;
+	char geo_fig[50];
+	scanf("%d/%d/%s", &cod, &cod_par, geo_fig);
+	TFIGURA *f = get_geofig(geo_fig);
+	scanf("%d", &t);
+	GenTree *node = (GenTree*) malloc(sizeof(GenTree));
+	node->cod = cod;
+	node->cod_parent = cod_par;
+	node->geofig = f;
+	node->child = NULL;
+	node->brother = NULL;
+	
+	if(!f) {
+		printf("Error: Figura geométrica inválida.\n");
+	} else {
+		if(!btree) btree = create(t);
+		if(t != btree->t) printf("Error: Parâmetro t deve ser o mesmo da árvore B criada.");
+		else btree = insert(btree, node, t);
+	}
+	return btree;
 }
 
 int is_bt_search(char* cmd) {
@@ -120,7 +149,7 @@ BTree* btree_cmds(GenTree* gt, BTree* bt) {
 		get_bt_help();
 		return bt;
 	}
-
+	if(is_bt_insert(cmd)) return get_bt_insert(gt, bt);
 	if(is_bt_search(cmd))  return get_bt_search(bt);
 	if(is_bt_print(cmd))   return get_bt_print(bt);
 	if(is_bt_destroy(cmd)) return get_bt_destroy(bt);
