@@ -6,16 +6,16 @@ int is_gt_help(char* cmd) {
 }
 
 void get_gt_help(void) {
-	printf("Operações da arvore genérica:                      \n");
-	printf("gentree | gt                                       \n");
-	printf("        [insert  | -in <cod>/<cod-parent>/<figure>]\n");
-	printf("        [remove  | -rm <cod>]                      \n");
-	printf("        [search  | -s <cod>]                       \n");
-	printf("        [print   | -p]                             \n");
-	printf("        [destroy | -d]                             \n");
-	printf("        [load    | -l  <path>]                     \n");
-	printf("        [save    | -sv <path>]                     \n");
-	printf("        [edit    | -e <cod>]                       \n");
+	printf("Operações da arvore genérica:                      					\n");
+	printf("gentree | gt                                       					\n");
+	printf("        [insert  | -in <cod>/<cod-parent>/<FIGURE> <figure-opts>]	\n");
+	printf("        [remove  | -rm <cod>]                      					\n");
+	printf("        [search  | -s <cod>]                      					\n");
+	printf("        [print   | -p]                             					\n");
+	printf("        [destroy | -d]                             					\n");
+	printf("        [load    | -l  <path>]                     					\n");
+	printf("        [save    | -sv <path>]                     					\n");
+	printf("        [edit    | -e <cod>]                       					\n");
 	printf("\n");
 }
 

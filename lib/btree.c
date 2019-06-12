@@ -12,6 +12,7 @@ BTree *new_bt(void) {
 
 BTree *create(int t) {
     BTree *node = (BTree *)malloc(sizeof(BTree));
+    node->t = t;
     node->leaf = 1;
     node->nkeys = 0;
     node->keys = (GenTree **)malloc(sizeof(GenTree *) * ((2 * t) - 1));
