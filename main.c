@@ -15,7 +15,7 @@ void show_welcome(void) {
 void show_help_opts(void) {
 	printf("Comandos disponiveis: \n");
 	printf("Arvore genérica: gentree | gt <opts>\n");
-	printf("Arvore AVL:      avl     |    <opts>\n");
+	printf("Arvore AVL:      avl     | at <opts>\n");
 	printf("Arvore B:        btree   | bt <opts>\n");
 	printf("Para sair:       exit    | quit\n");
 	printf("Exibir as operações das arvores: <opts> = --help | -h \n");

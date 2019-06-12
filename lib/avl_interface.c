@@ -8,10 +8,11 @@ int is_avl_help(char* cmd) {
 void get_avl_help(void) {
 	printf("Operações da arvore AVL:                       				\n");
 	printf("avl ou at                                       			\n");
-	printf("        [search  ou -s (cod)]                       		\n");
+	printf("        [insert  ou -in <cod>/<figure>]                     \n");
+	printf("        [search  ou -s <cod>]                       		\n");
 	printf("        [print   ou -p]                             		\n");
 	printf("        [destroy ou -d]                             		\n");
-	printf("        [convert ou -c (path) se for por arquivo]			\n");
+	printf("        [convert ou -c <path> se for por arquivo]			\n");
 	printf("        [convert ou -c se for por instância em memória]		\n");
 	printf("\n");
 }
@@ -64,6 +65,11 @@ int is_avl_load_for_convert(char* cmd) {
 			(strcmp(cmd, "-l") == 0);
 }
 
+int is_avl_insert(char* cmd) {
+	return (strcmp(cmd, "insert") == 0) ||
+			(strcmp(cmd, "-in") == 0);
+}
+
 GenTree* get_gt_load_for_convert_avl(GenTree* t) {
 	char path[100];
 	scanf("%s", path);
@@ -100,6 +106,19 @@ AVL* get_avl_convert(GenTree* gt) {
     return convert_avl_from_memory(gt);
 }
 
+AVL* get_avl_insert(AVL* at) {
+	int cod, cod_par;
+	char geo_fig[50];
+	scanf("%d/%s", &cod, geo_fig);
+	TFIGURA *f = get_geofig(geo_fig);
+	if(!f) {
+		printf("Error: Figura geométrica inválida.\n");
+	} else {
+		at = insert_avl(at, cod, f);
+	}
+    return at;
+}
+
 AVL* avl_cmds(GenTree* gt, AVL* at) {
 	char cmd[50];
 	scanf("%s", cmd);
@@ -113,6 +132,7 @@ AVL* avl_cmds(GenTree* gt, AVL* at) {
 	if(is_avl_print(cmd))   return get_avl_print(at);
 	if(is_avl_destroy(cmd)) return get_avl_destroy(at);
 	if(is_avl_convert(cmd)) return get_avl_convert(gt);
+	if(is_avl_insert(cmd))	return get_avl_insert(at);
 	printf("Error: operação não encontrada para AVL!\n");
 	return at;
 }
