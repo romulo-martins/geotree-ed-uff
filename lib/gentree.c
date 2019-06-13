@@ -69,7 +69,7 @@ GenTree* edit_gt(GenTree* t, int cod){
 	GenTree* node = search_gt(t, cod);
 	if(!node){
 		 printf("Nó não encontrado.");
-		return NULL;
+		return t;
 	}
 	printf("Figura selecionada: \n");
 	printf("Código: %d ", cod);
